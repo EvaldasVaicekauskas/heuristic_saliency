@@ -11,11 +11,11 @@ def main():
 
     # Define heuristic settings (Enable/Disable & Weight)
     heuristic_config = {
-        "red": {"enabled": True, "weight": 0.2},
+        "red": {"enabled": True, "weight": 0.05},
         "contrast": {"enabled": True, "weight": 0.2},
         "saturation": {"enabled": True, "weight": 0.2},
         "superpixel_contrast": {"enabled": True, "weight": 0.2},
-        "complementary_colors": {"enabled": True, "weight": 0.2}
+        "complementary_colors": {"enabled": True, "weight": 0.25}
     }
 
     # Initialize and run the model

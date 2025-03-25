@@ -4,7 +4,90 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ce17240-ad5d-497e-865e-5c0f1d396f86" name="Changes" comment="" />
+    <list default="true" id="2ce17240-ad5d-497e-865e-5c0f1d396f86" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ga/checkpoint.pkl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ga/config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ga/genetic.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ga/run_ga.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ga/template_config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test_dataset_loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/heuristic_saliency.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/heuristic_saliency.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/160.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/171.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/172.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/177.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/178.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/35.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/75.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/76.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/88.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/89.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/93.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/94.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/saliency_15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/saliency_16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/saliency_160.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/saliency_171.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/saliency_172.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/saliency_177.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/saliency_178.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/saliency_35.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/saliency_36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/saliency_5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/saliency_6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/saliency_75.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/saliency_76.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/saliency_88.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/saliency_89.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/saliency_93.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/saliency_94.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/saliency.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/saliency.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/contour_overlay_15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/contour_overlay_16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/contour_overlay_160.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/contour_overlay_171.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/contour_overlay_172.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/contour_overlay_177.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/contour_overlay_178.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/contour_overlay_35.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/contour_overlay_36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/contour_overlay_5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/contour_overlay_6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/contour_overlay_75.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/contour_overlay_76.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/contour_overlay_88.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/contour_overlay_89.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/contour_overlay_93.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/contour_overlay_94.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization_15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization_16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization_160.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization_171.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization_172.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization_177.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization_178.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization_35.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization_36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization_5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization_6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization_75.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization_76.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization_88.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization_89.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization_93.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizations/visualization_94.png" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,9 +103,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;EvaldasVaicekauskas&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/EvaldasVaicekauskas/heuristic_saliency.git&quot;,
+    &quot;accountId&quot;: &quot;d4cb4cb5-3acf-4a5b-a206-862a6de4c9bc&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2tDLdXe2bLjzdE4E2P4qUvjde5V" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -33,14 +128,27 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.genetic.executor": "Run",
+    "Python.run_ga.executor": "Run",
+    "Python.test_cuda.executor": "Run",
+    "Python.test_dataset_loader.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main"
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/evaldas/PycharmProjects/saliency_benchmarking",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/visualizations/test_imgs" />
+      <recent name="$PROJECT_DIR$/data/images" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-a5bc9544c897-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.23654.177" />
+        <option value="bundled-python-sdk-14705d77f0bb-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.25659.43" />
       </set>
     </attachedChunks>
   </component>

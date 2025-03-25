@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import os
 
-from utils import create_hue_mask
+from src.utils import create_hue_mask
 
 from skimage.segmentation import slic
 from skimage.color import rgb2lab
@@ -12,13 +12,16 @@ from skimage import graph
 class SaliencyModel:
     """Dynamic heuristic-based saliency model with configurable weights and activation."""
 
-    def __init__(self, input_dir, output_dir, vis_dir, heuristic_config):
+    def __init__(self, input_dir=None, output_dir=None, vis_dir=None, heuristic_config=None):
         self.input_dir = input_dir
         self.output_dir = output_dir
         self.vis_dir = vis_dir
-        self.heuristic_config = heuristic_config  # Dictionary with heuristic settings
-        os.makedirs(output_dir, exist_ok=True)
-        os.makedirs(vis_dir, exist_ok=True)
+        self.heuristic_config = heuristic_config or {}
+
+        if output_dir:
+            os.makedirs(output_dir, exist_ok=True)
+        if vis_dir:
+            os.makedirs(vis_dir, exist_ok=True)
 
     # ========================== Image evaluation ===============================
 
@@ -323,3 +326,33 @@ class SaliencyModel:
                 # Print status update
                 print(f"Processed: {filename} → Saliency Map: {output_path} "
                       f"| Visualization: {vis_path} | Contour Overlay: {contour_vis_path}")
+
+    def generate_saliency_for_image(self, image):
+        heuristic_maps = []
+
+        # Global image metrics
+        overall_saturation = self.calculate_overall_saturation(image)
+        overall_colorfulness = self.measure_colorfulness(image)
+
+        if self.heuristic_config.get("red", {}).get("enabled", False):
+            red_map = self.detect_red_saliency(image)
+            heuristic_maps.append((red_map, self.heuristic_config["red"]["weight"]))
+
+        if self.heuristic_config.get("contrast", {}).get("enabled", False):
+            contrast_map = self.detect_contrast_saliency(image)
+            heuristic_maps.append((contrast_map, self.heuristic_config["contrast"]["weight"]))
+
+        if self.heuristic_config.get("saturation", {}).get("enabled", False):
+            sat_map = self.detect_saturation_saliency(image, overall_saturation)
+            heuristic_maps.append((sat_map, self.heuristic_config["saturation"]["weight"]))
+
+        if self.heuristic_config.get("superpixel_contrast", {}).get("enabled", False):
+            sp_map = self.detect_superpixel_color_contrast(image, 350, 20, overall_colorfulness)
+            heuristic_maps.append((sp_map, self.heuristic_config["superpixel_contrast"]["weight"]))
+
+        if self.heuristic_config.get("complementary_colors", {}).get("enabled", False):
+            cc_map = self.detect_complementary_color_saliency(image)
+            heuristic_maps.append((cc_map, self.heuristic_config["complementary_colors"]["weight"]))
+
+        combined_saliency = self.combine_saliency_maps(heuristic_maps)
+        return combined_saliency
