@@ -1,0 +1,35 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Dataset & output directories
+data/
+output/
+visualizations/
+fixation_maps/
+
+# PyCharm project files
+.idea/
+
+# Secrets / logs / configs (optional)
+*.log
+*.pkl
+*.ckpt
+*.weights
+*.h5
+
+# OS junk
+.DS_Store
+Thumbs.db
