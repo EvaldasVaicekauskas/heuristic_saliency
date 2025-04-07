@@ -9,6 +9,8 @@ from skimage.color import rgb2lab
 from skimage.util import img_as_float
 from skimage import graph
 
+from heuristics import symmetry_saliency
+
 class SaliencyModel:
     """Dynamic heuristic-based saliency model with configurable weights and activation."""
 
@@ -222,11 +224,11 @@ class SaliencyModel:
 
     # =========================== Dynamic Saliency Functions ===========================
 
-    def combine_saliency_maps(self, maps_with_weights):
+    def combine_saliency_maps(self, heuristic_maps):
         """Dynamically combine enabled saliency maps using their defined weights."""
-        combined_map = np.zeros_like(maps_with_weights[0][0], dtype=np.float32)
+        combined_map = np.zeros_like(heuristic_maps[0][0], dtype=np.float32)
 
-        for saliency_map, weight in maps_with_weights:
+        for saliency_map, weight in heuristic_maps:
             combined_map += saliency_map * weight
 
         # Normalize the result
@@ -356,3 +358,32 @@ class SaliencyModel:
 
         combined_saliency = self.combine_saliency_maps(heuristic_maps)
         return combined_saliency
+
+    def generate_saliency_maps_for_image(self, image):
+        heuristic_maps = {}
+
+        overall_saturation = self.calculate_overall_saturation(image)
+        overall_colorfulness = self.measure_colorfulness(image)
+
+        if "red" in self.heuristic_config:
+            heuristic_maps["red"] = self.detect_red_saliency(image)
+
+        if "contrast" in self.heuristic_config:
+            heuristic_maps["contrast"] = self.detect_contrast_saliency(image)
+
+        if "saturation" in self.heuristic_config:
+            heuristic_maps["saturation"] = self.detect_saturation_saliency(image, overall_saturation)
+
+        if "superpixel_contrast" in self.heuristic_config:
+            heuristic_maps["superpixel_contrast"] = self.detect_superpixel_color_contrast(
+                image, 350, 20, overall_colorfulness
+            )
+
+        if "complementary_colors" in self.heuristic_config:
+            heuristic_maps["complementary_colors"] = self.detect_complementary_color_saliency(image)
+
+        if "symmetry" in self.heuristic_config:
+            sym_map = symmetry_saliency(image)
+            heuristic_maps["symmetry"] = sym_map
+
+        return heuristic_maps

@@ -1,14 +1,15 @@
 {
   "heuristics": {
-    "red": 0.05,
-    "contrast": 0.2,
-    "saturation": 0.2
+    "red": 1.0
+
+
+
 
   },
-  "population_size": 10,
-  "generations": 20,
-  "mutation_rate": 0.1,
-  "crossover_rate": 0.7,
+  "population_size": 15,
+  "generations": 15,
+  "mutation_rate": 0.3,
+  "crossover_rate": 1.0,
   "weight_threshold": 0.00
 }
 

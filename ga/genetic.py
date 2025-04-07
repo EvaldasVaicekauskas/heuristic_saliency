@@ -1,12 +1,13 @@
 
 import cv2
 import random
+import numpy as np
+
 
 from src.saliency import SaliencyModel
 from src.utils import load_dataset_in_gt
 from evaluation.evaluation import evaluate_saliency_image  # assuming you have this
-import numpy as np
-import os
+from src.utils import combine_maps_with_weights
 
 
 
@@ -40,7 +41,8 @@ def compute_fitness(heuristic_config, dataset):
     cc_list, sim_list, kld_list = [], [], []
 
     for image, gt_map in dataset:
-        pred_map = model.generate_saliency_for_image(image)
+        #pred_map = model.generate_saliency_for_image(image)
+        pred_map = model.combine_saliency_maps(heuristic_config)
 
         if pred_map.shape != gt_map.shape:
             gt_map = cv2.resize(gt_map, (pred_map.shape[1], pred_map.shape[0]))
@@ -60,6 +62,8 @@ def compute_fitness(heuristic_config, dataset):
 
     return fitness
 
+
+
 def initialize_population(pop_size, num_genes):
     """
     Creates a population of random individuals.
@@ -70,7 +74,7 @@ def initialize_population(pop_size, num_genes):
         for _ in range(pop_size)
     ]
 
-def evaluate_population(population, dataset, heuristic_names, weight_threshold):
+def evaluate_population(population, precomputed_maps, dataset, image_filenames, heuristic_names, weight_threshold):
     """
     Evaluate each individual in the population using the fitness function.
 
@@ -86,6 +90,35 @@ def evaluate_population(population, dataset, heuristic_names, weight_threshold):
         for name, cfg in config.items():
             print(f"{name}: {cfg['weight']:.4f}")
 
-        fitness = compute_fitness(config, dataset)
+        fitness = compute_fitness_from_config(config, precomputed_maps, dataset, image_filenames)
         evaluated.append((individual, fitness))
     return evaluated
+
+def compute_fitness_from_config(config, precomputed_maps, dataset, image_filenames):
+    cc_list, sim_list, kld_list = [], [], []
+
+    for idx in range(len(dataset)):
+        filename = image_filenames[idx]
+        heuristic_maps = precomputed_maps[filename]
+        gt_map = dataset[idx][1]
+
+        combined = combine_maps_with_weights(heuristic_maps, config)
+
+        # Resize GT map if needed
+        if combined.shape != gt_map.shape:
+            gt_map = cv2.resize(gt_map, (combined.shape[1], combined.shape[0]))
+
+        cc, sim, kld = evaluate_saliency_image(combined, gt_map)
+        cc_list.append(cc)
+        sim_list.append(sim)
+        kld_list.append(kld)
+
+    avg_cc = np.mean(cc_list)
+    avg_sim = np.mean(sim_list)
+    avg_kld = np.mean(kld_list)
+
+    fitness = fitness_function(avg_cc, avg_sim, avg_kld)
+    print(f"Fitness: {fitness}, Avg cc: {avg_cc}, Avg sim: {avg_sim}, Avg KLd: {avg_kld}, over {len(cc_list)} samples")
+
+    return fitness
+

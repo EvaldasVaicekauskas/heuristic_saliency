@@ -42,6 +42,397 @@ def detect_red_saliency(image):
     red_mask = mask1 + mask2
     return cv2.normalize(red_mask, None, 0, 255, cv2.NORM_MINMAX)
 
+### Isolation
+
+## Proximity
+
+# Proximity grouping (colour space) + global outliers
+
+def proximity_colour_loc_glob(image, n_segments=200, compactness=10, local_radius=0.2):
+    """
+    Compute saliency based on perceptual grouping and contrast between superpixels,
+    using both global distinctiveness and local contrast based on spatial proximity.
+
+    Args:
+        image: Input RGB image (BGR if OpenCV-loaded)
+        n_segments: Number of superpixels for SLIC
+        compactness: Compactness parameter for SLIC
+        local_radius: Normalized radius in [0, 1] for local contrast (Euclidean distance in image space)
+
+    Returns:
+        saliency_map: Normalized uint8 saliency map
+    """
+    height, width = image.shape[:2]
+
+    # Convert to LAB for perceptual color distance
+    lab_image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
+    segments = slic(image, n_segments=n_segments, compactness=compactness, start_label=0)
+
+    features = []
+    positions = []
+    segment_ids = np.unique(segments)
+
+    for seg_id in segment_ids:
+        mask = (segments == seg_id)
+        color = lab_image[mask].mean(axis=0)  # L, A, B
+        y, x = np.argwhere(mask).mean(axis=0)  # Position
+        features.append(color)
+        positions.append([x / width, y / height])  # Normalized positions
+
+    features = np.array(features)
+    positions = np.array(positions)
+
+    # Normalize feature vectors
+    scaler = StandardScaler()
+    features_scaled = scaler.fit_transform(features)
+
+    # --- Global Contrast: Euclidean distance to global mean
+    global_scores = np.linalg.norm(features_scaled, axis=1)
+
+    # --- Local Contrast: distance-weighted feature difference from nearby regions
+    tree = KDTree(positions)
+    neighbors = tree.query_radius(positions, r=local_radius)
+
+    local_scores = []
+    for i, neighbor_ids in enumerate(neighbors):
+        diffs = []
+        for j in neighbor_ids:
+            if i == j:
+                continue
+            dist = np.linalg.norm(positions[i] - positions[j]) + 1e-6  # avoid div by 0
+            feature_dist = np.linalg.norm(features_scaled[i] - features_scaled[j])
+            diffs.append(feature_dist / dist)
+        if diffs:
+            local_scores.append(np.mean(diffs))
+        else:
+            local_scores.append(0.0)
+
+    local_scores = np.array(local_scores)
+
+    # --- Combine scores
+    final_scores = 0.6 * global_scores + 0.4 * local_scores
+
+    # --- Map scores back to saliency map
+    saliency_map = np.zeros((height, width), dtype=np.float32)
+    for seg_id, score in zip(segment_ids, final_scores):
+        saliency_map[segments == seg_id] = score
+
+    saliency_map = cv2.normalize(saliency_map, None, 0, 255, cv2.NORM_MINMAX)
+    return saliency_map.astype(np.uint8)
+
+def proximity_colour_global(image, n_segments=200, compactness=10):
+    """
+    Compute saliency based on global contrast of LAB color features across superpixels.
+    Returns a saliency map where regions distinct from the global mean are more salient.
+    """
+    height, width = image.shape[:2]
+    lab_image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
+    segments = slic(image, n_segments=n_segments, compactness=compactness, start_label=0)
+
+    features = []
+    segment_ids = np.unique(segments)
+
+    for seg_id in segment_ids:
+        mask = (segments == seg_id)
+        color = lab_image[mask].mean(axis=0)  # L, A, B
+        features.append(color)
+
+    features = np.array(features)
+    scaler = StandardScaler()
+    features_scaled = scaler.fit_transform(features)
+
+    global_scores = np.linalg.norm(features_scaled, axis=1)
+
+    saliency_map = np.zeros((height, width), dtype=np.float32)
+    for seg_id, score in zip(segment_ids, global_scores):
+        saliency_map[segments == seg_id] = score
+
+    saliency_map = cv2.normalize(saliency_map, None, 0, 255, cv2.NORM_MINMAX)
+    return saliency_map.astype(np.uint8)
+
+def proximity_colour_local(image, n_segments=200, compactness=10, local_radius=0.2):
+    """
+    Compute saliency based on local contrast between superpixels,
+    using spatial proximity (not just adjacency).
+    """
+    height, width = image.shape[:2]
+    lab_image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
+    segments = slic(image, n_segments=n_segments, compactness=compactness, start_label=0)
+
+    features = []
+    positions = []
+    segment_ids = np.unique(segments)
+
+    for seg_id in segment_ids:
+        mask = (segments == seg_id)
+        color = lab_image[mask].mean(axis=0)
+        y, x = np.argwhere(mask).mean(axis=0)
+        features.append(color)
+        positions.append([x / width, y / height])
+
+    features = np.array(features)
+    positions = np.array(positions)
+    scaler = StandardScaler()
+    features_scaled = scaler.fit_transform(features)
+
+    tree = KDTree(positions)
+    neighbors = tree.query_radius(positions, r=local_radius)
+
+    local_scores = []
+    for i, neighbor_ids in enumerate(neighbors):
+        diffs = []
+        for j in neighbor_ids:
+            if i == j:
+                continue
+            dist = np.linalg.norm(positions[i] - positions[j]) + 1e-6
+            feature_dist = np.linalg.norm(features_scaled[i] - features_scaled[j])
+            diffs.append(feature_dist / dist)
+        if diffs:
+            local_scores.append(np.mean(diffs))
+        else:
+            local_scores.append(0.0)
+
+    saliency_map = np.zeros((height, width), dtype=np.float32)
+    for seg_id, score in zip(segment_ids, local_scores):
+        saliency_map[segments == seg_id] = score
+
+    saliency_map = cv2.normalize(saliency_map, None, 0, 255, cv2.NORM_MINMAX)
+    return saliency_map.astype(np.uint8)
+
+# Feature
+
+def color_lab_deviation(image):
+    image_float = img_as_float(image)
+    lab = rgb2lab(image_float)
+    mean_color = np.mean(lab.reshape(-1, 3), axis=0)
+    diff = np.linalg.norm(lab - mean_color, axis=2)
+    return diff.astype(np.float32)
+
+def intensity_map(image):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    return gray.astype(np.float32)
+
+def texture_entropy(image, neighborhood_radius=10):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    ent = entropy(gray, disk(neighborhood_radius))
+    return ent.astype(np.float32)
+
+def texture_lbp(image, radius=35, n_points=3, method='nri_uniform'):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    lbp = local_binary_pattern(gray, n_points, radius, method)
+    return lbp.astype(np.float32)
+
+def texture_gabor_energy(image, orientations=8, scales=[4, 8, 16], ksize=15, sigma=4.0):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY).astype(np.float32) / 255.0
+    rows, cols = gray.shape
+    energy_map = np.zeros((rows, cols), dtype=np.float32)
+
+    for theta in np.linspace(0, np.pi, orientations, endpoint=False):
+        for lambd in scales:
+            kernel = cv2.getGaborKernel((ksize, ksize), sigma, theta, lambd, gamma=0.5, psi=0)
+            filtered = cv2.filter2D(gray, cv2.CV_32F, kernel)
+            energy_map += filtered ** 2
+
+    return energy_map
+
+# Context
+
+def global_mean_context(feature_map):
+    return np.full_like(feature_map, np.mean(feature_map))
+
+def local_blur_context(feature_map, sigma_ratio=0.005):
+    h, w = feature_map.shape[:2]
+    sigma = sigma_ratio * (h + w) / 2
+    return cv2.GaussianBlur(feature_map, (0, 0), sigma)
+
+def local_multi_scale_context(feature_map, sigma_ratios=[0.005, 0.015, 0.030], weights=None):
+    """
+    Build a context map from multi-scale blurred versions.
+    Args:
+        feature_map: 2D float32 array.
+        sigmas: list of gaussian blur sigmas (larger = more global).
+        weights: optional list of weights per sigma (defaults to 1/sigma).
+    """
+    h, w = feature_map.shape[:2]
+    sigmas = [r * (h + w) / 2 for r in sigma_ratios]
+
+    if weights is None:
+        weights = [1.0 / s for s in sigmas]  # smaller sigma = stronger weight
+
+    context_sum = np.zeros_like(feature_map, dtype=np.float32)
+    total_weight = 0.0
+
+    for sigma, weight in zip(sigmas, weights):
+        blurred = cv2.GaussianBlur(feature_map, (0, 0), sigma)
+        difference = np.abs(feature_map - blurred)
+        context_sum += weight * difference
+        total_weight += weight
+
+    return context_sum / total_weight
+
+# Scoring
+
+def score_absolute_difference(feature_map, context_map):
+    return np.abs(feature_map - context_map)
+
+def score_zscore(feature_map, context_map):
+    std = np.std(feature_map)
+    return (feature_map - context_map) / std if std > 0 else np.zeros_like(feature_map)
+
+def score_threshold_top_percent(feature_map, context_map, percentile=95):
+    difference = score_absolute_difference(feature_map, context_map)
+    threshold = np.percentile(difference, percentile)
+    return (difference >= threshold).astype(np.uint8) * 255
+
+# Mapping
+
+def normalize_to_uint8(saliency):
+    return cv2.normalize(saliency, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+
+# Full
+
+# Texture_gabor_energy
+def isolation_tex_gab_global_abs(image):
+    feature = texture_gabor_energy(image)
+    context = global_mean_context(feature)
+    score = score_absolute_difference(feature, context)
+    return normalize_to_uint8(score)
+
+
+def isolation_tex_gab_local_abs(image):
+    feature = texture_gabor_energy(image)
+    context = local_blur_context(feature)
+    score = score_absolute_difference(feature, context)
+    return normalize_to_uint8(score)
+
+
+def isolation_tex_gab_local_multi(image):
+    feature = texture_gabor_energy(image)
+    score = local_multi_scale_context(feature, weights=[0.5, 0.3, 0.2])
+    return normalize_to_uint8(score)
+
+# Texture_LBP
+def isolation_tex_lbp_global_abs(image):
+    feature = texture_lbp(image)
+    context = global_mean_context(feature)
+    score = score_absolute_difference(feature, context)
+    return normalize_to_uint8(score)
+
+def isolation_tex_lbp_local_abs(image):
+    feature = texture_lbp(image)
+    context = local_blur_context(feature)
+    score = score_absolute_difference(feature, context)
+    return normalize_to_uint8(score)
+
+
+def isolation_tex_lbp_local_multi(image):
+    feature = texture_lbp(image)
+    score = local_multi_scale_context(feature, weights=[0.5, 0.3, 0.2])
+    return normalize_to_uint8(score)
+
+# Texture_entropy
+def isolation_tex_entropy_global_abs(image):
+    feature = texture_entropy(image)
+    context = global_mean_context(feature)
+    score = score_absolute_difference(feature, context)
+    return normalize_to_uint8(score)
+
+def isolation_tex_entropy_local_abs(image):
+    feature = texture_entropy(image)
+    context = local_blur_context(feature)
+    score = score_absolute_difference(feature, context)
+    return normalize_to_uint8(score)
+
+def isolation_tex_entropy_local_multi(image):
+    feature = texture_entropy(image)
+    score = local_multi_scale_context(feature, weights=[0.5, 0.3, 0.2])
+    return normalize_to_uint8(score)
+
+# Intensity
+def isolation_intensity_global_abs(image):
+    feature = intensity_map(image)
+    context = global_mean_context(feature)
+    score = score_absolute_difference(feature, context)
+    return normalize_to_uint8(score)
+
+def isolation_intensity_global_zscore(image):
+    feature = intensity_map(image)
+    context = global_mean_context(feature)
+    score = score_zscore(feature, context)
+    return normalize_to_uint8(score)
+
+def isolation_intensity_global_top(image):
+    feature = intensity_map(image)
+    context = global_mean_context(feature)
+    score = score_threshold_top_percent(feature, context,95)
+    return normalize_to_uint8(score)
+
+def isolation_intensity_local_abs(image):
+    feature = intensity_map(image)
+    context = local_blur_context(feature)
+    score = score_absolute_difference(feature, context)
+    return normalize_to_uint8(score)
+
+def isolation_intensity_local_zscore(image):
+    feature = intensity_map(image)
+    context = local_blur_context(feature)
+    score = score_zscore(feature, context)
+    return normalize_to_uint8(score)
+
+def isolation_intensity_local_top(image):
+    feature = intensity_map(image)
+    context = local_blur_context(feature)
+    score = score_threshold_top_percent(feature, context, 95)
+    return normalize_to_uint8(score)
+
+def isolation_intensity_local_multi(image):
+    feature = intensity_map(image)
+    score = local_multi_scale_context(feature, weights=[0.5, 0.3, 0.2])
+    return normalize_to_uint8(score)
+
+# LAB
+def isolation_color_global_abs(image):
+    feature = color_lab_deviation(image)
+    context = global_mean_context(feature)
+    score = score_absolute_difference(feature, context)
+    return normalize_to_uint8(score)
+
+def isolation_color_global_zscore(image):
+    feature = color_lab_deviation(image)
+    context = global_mean_context(feature)
+    score = score_zscore(feature, context)
+    return normalize_to_uint8(score)
+
+def isolation_color_global_top(image):
+    feature = color_lab_deviation(image)
+    context = global_mean_context(feature)
+    score = score_threshold_top_percent(feature, context,95)
+    return normalize_to_uint8(score)
+
+def isolation_color_local_abs(image):
+    feature = color_lab_deviation(image)
+    context = local_blur_context(feature)
+    score = score_absolute_difference(feature, context)
+    return normalize_to_uint8(score)
+
+def isolation_color_local_zscore(image):
+    feature = color_lab_deviation(image)
+    context = local_blur_context(feature)
+    score = score_zscore(feature, context)
+    return normalize_to_uint8(score)
+
+def isolation_color_local_top(image):
+    feature = color_lab_deviation(image)
+    context = local_blur_context(feature)
+    score = score_threshold_top_percent(feature, context, 95)
+    return normalize_to_uint8(score)
+
+def isolation_color_local_multi(image):
+    feature = color_lab_deviation(image)
+    score = local_multi_scale_context(feature, weights=[0.5, 0.3, 0.2])
+    return normalize_to_uint8(score)
+
+
 ### Contrast
 
 ## Edges
@@ -228,163 +619,7 @@ def contrast_texture_entropy(image, neighborhood_radius=5,entropy_threshold=5.0)
 
 
 
-## Proximity
 
-# Proximity grouping (colour space) + global outliers
-
-
-
-
-def proximity_colour_loc_glob(image, n_segments=200, compactness=10, local_radius=0.2):
-    """
-    Compute saliency based on perceptual grouping and contrast between superpixels,
-    using both global distinctiveness and local contrast based on spatial proximity.
-
-    Args:
-        image: Input RGB image (BGR if OpenCV-loaded)
-        n_segments: Number of superpixels for SLIC
-        compactness: Compactness parameter for SLIC
-        local_radius: Normalized radius in [0, 1] for local contrast (Euclidean distance in image space)
-
-    Returns:
-        saliency_map: Normalized uint8 saliency map
-    """
-    height, width = image.shape[:2]
-
-    # Convert to LAB for perceptual color distance
-    lab_image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
-    segments = slic(image, n_segments=n_segments, compactness=compactness, start_label=0)
-
-    features = []
-    positions = []
-    segment_ids = np.unique(segments)
-
-    for seg_id in segment_ids:
-        mask = (segments == seg_id)
-        color = lab_image[mask].mean(axis=0)  # L, A, B
-        y, x = np.argwhere(mask).mean(axis=0)  # Position
-        features.append(color)
-        positions.append([x / width, y / height])  # Normalized positions
-
-    features = np.array(features)
-    positions = np.array(positions)
-
-    # Normalize feature vectors
-    scaler = StandardScaler()
-    features_scaled = scaler.fit_transform(features)
-
-    # --- Global Contrast: Euclidean distance to global mean
-    global_scores = np.linalg.norm(features_scaled, axis=1)
-
-    # --- Local Contrast: distance-weighted feature difference from nearby regions
-    tree = KDTree(positions)
-    neighbors = tree.query_radius(positions, r=local_radius)
-
-    local_scores = []
-    for i, neighbor_ids in enumerate(neighbors):
-        diffs = []
-        for j in neighbor_ids:
-            if i == j:
-                continue
-            dist = np.linalg.norm(positions[i] - positions[j]) + 1e-6  # avoid div by 0
-            feature_dist = np.linalg.norm(features_scaled[i] - features_scaled[j])
-            diffs.append(feature_dist / dist)
-        if diffs:
-            local_scores.append(np.mean(diffs))
-        else:
-            local_scores.append(0.0)
-
-    local_scores = np.array(local_scores)
-
-    # --- Combine scores
-    final_scores = 0.6 * global_scores + 0.4 * local_scores
-
-    # --- Map scores back to saliency map
-    saliency_map = np.zeros((height, width), dtype=np.float32)
-    for seg_id, score in zip(segment_ids, final_scores):
-        saliency_map[segments == seg_id] = score
-
-    saliency_map = cv2.normalize(saliency_map, None, 0, 255, cv2.NORM_MINMAX)
-    return saliency_map.astype(np.uint8)
-
-def proximity_colour_global(image, n_segments=200, compactness=10):
-    """
-    Compute saliency based on global contrast of LAB color features across superpixels.
-    Returns a saliency map where regions distinct from the global mean are more salient.
-    """
-    height, width = image.shape[:2]
-    lab_image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
-    segments = slic(image, n_segments=n_segments, compactness=compactness, start_label=0)
-
-    features = []
-    segment_ids = np.unique(segments)
-
-    for seg_id in segment_ids:
-        mask = (segments == seg_id)
-        color = lab_image[mask].mean(axis=0)  # L, A, B
-        features.append(color)
-
-    features = np.array(features)
-    scaler = StandardScaler()
-    features_scaled = scaler.fit_transform(features)
-
-    global_scores = np.linalg.norm(features_scaled, axis=1)
-
-    saliency_map = np.zeros((height, width), dtype=np.float32)
-    for seg_id, score in zip(segment_ids, global_scores):
-        saliency_map[segments == seg_id] = score
-
-    saliency_map = cv2.normalize(saliency_map, None, 0, 255, cv2.NORM_MINMAX)
-    return saliency_map.astype(np.uint8)
-
-def proximity_colour_local(image, n_segments=200, compactness=10, local_radius=0.2):
-    """
-    Compute saliency based on local contrast between superpixels,
-    using spatial proximity (not just adjacency).
-    """
-    height, width = image.shape[:2]
-    lab_image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
-    segments = slic(image, n_segments=n_segments, compactness=compactness, start_label=0)
-
-    features = []
-    positions = []
-    segment_ids = np.unique(segments)
-
-    for seg_id in segment_ids:
-        mask = (segments == seg_id)
-        color = lab_image[mask].mean(axis=0)
-        y, x = np.argwhere(mask).mean(axis=0)
-        features.append(color)
-        positions.append([x / width, y / height])
-
-    features = np.array(features)
-    positions = np.array(positions)
-    scaler = StandardScaler()
-    features_scaled = scaler.fit_transform(features)
-
-    tree = KDTree(positions)
-    neighbors = tree.query_radius(positions, r=local_radius)
-
-    local_scores = []
-    for i, neighbor_ids in enumerate(neighbors):
-        diffs = []
-        for j in neighbor_ids:
-            if i == j:
-                continue
-            dist = np.linalg.norm(positions[i] - positions[j]) + 1e-6
-            feature_dist = np.linalg.norm(features_scaled[i] - features_scaled[j])
-            diffs.append(feature_dist / dist)
-        if diffs:
-            local_scores.append(np.mean(diffs))
-        else:
-            local_scores.append(0.0)
-
-    saliency_map = np.zeros((height, width), dtype=np.float32)
-    for seg_id, score in zip(segment_ids, local_scores):
-        saliency_map[segments == seg_id] = score
-
-    saliency_map = cv2.normalize(saliency_map, None, 0, 255, cv2.NORM_MINMAX)
-    return saliency_map.astype(np.uint8)
 
 
 # Complementary colour mapping
@@ -456,7 +691,7 @@ def detect_complementary_color_saliency(image, top_n=3, hue_range=10, proximity_
 
         return complementary_saliency_map
 
-## Symmetry
+### Symmetry
 
 # objects_vertical
 
@@ -492,7 +727,7 @@ def symmetry_superpixel_reflection(image, num_segments=40, symmetry_axis='vertic
         mirrored = mirrored[:min_h, :min_w]
 
         # Compare region and its reflection
-        score = ssim(region, mirrored)
+        score = compute_symmetry_score(region, symmetry_axis, threshold=0.0)
 
         #score=compute_symmetry_score(mask,symmetry_axis,threshold)
         if score > threshold:
@@ -500,6 +735,482 @@ def symmetry_superpixel_reflection(image, num_segments=40, symmetry_axis='vertic
 
     return output_mask
 
+def symmetry_superpixel_reflection_preproc(image, num_segments=40, symmetry_axis='vertical', min_region_size=30,threshold=0.55):
+    image_float = img_as_float(image)
+    #segments = slic(image_float, n_segments=num_segments, compactness=10, sigma=4, start_label=1)
+    segments = preprocess_and_segment_superpixels(image, num_segments=60, compactness=10, sigma=1)
+    output_mask = np.zeros(image.shape[:2], dtype=np.uint8)
+
+    for seg_val in np.unique(segments):
+        mask = (segments == seg_val).astype(np.uint8) * 255
+
+        # Skip small regions
+        if cv2.countNonZero(mask) < min_region_size:
+            continue
+
+        x, y, w, h = cv2.boundingRect(mask)
+        region = mask[y:y+h, x:x+w]
+
+        # Mirror along axis
+        if symmetry_axis == 'vertical':
+            mirrored = cv2.flip(region, 1)
+        elif symmetry_axis == 'horizontal':
+            mirrored = cv2.flip(region, 0)
+        else:
+            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
+
+        # Crop to the smallest overlapping shape
+        min_h, min_w = min(region.shape[0], mirrored.shape[0]), min(region.shape[1], mirrored.shape[1])
+        region = region[:min_h, :min_w]
+        mirrored = mirrored[:min_h, :min_w]
+
+        # Compare region and its reflection
+        #score = ssim(region, mirrored)
+        score = compute_symmetry_score(region, symmetry_axis, threshold=0.0)
+        if score > threshold:
+            output_mask[y:y+h, x:x+w][region > 0] = 255*score
+
+    return output_mask
+
+def symmetry_seeded_region_reflection(image, symmetry_axis='vertical', min_region_size=30, sigma=5,threshold=0.55):
+    """
+    Region symmetry detection using seeded region growing from intensity maxima.
+    """
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray_blurred = gaussian(gray, sigma=sigma)
+
+    # Use local maxima as seeds (ensure float64 image for peak_local_max)
+    coordinates = peak_local_max(gray_blurred, min_distance=20, threshold_abs=0.3)
+
+    output_mask = np.zeros_like(gray, dtype=np.uint8)
+
+    for y, x in coordinates:
+        # Perform flood fill from the seed point
+        region = flood(gray, seed_point=(y, x), tolerance=25)
+
+        # Skip if region is invalid or empty
+        if region is None or not np.any(region):
+            continue
+
+        # Create binary mask
+        region_mask = np.zeros_like(gray, dtype=np.uint8)
+        region_mask[region] = 255
+
+        # Skip small regions
+        if cv2.countNonZero(region_mask) < min_region_size:
+            continue
+
+        # Bounding box for the region
+        x0, y0, w, h = cv2.boundingRect(region_mask)
+        cropped = region_mask[y0:y0+h, x0:x0+w]
+
+        # Reflect the cropped region
+        if symmetry_axis == 'vertical':
+            mirrored = cv2.flip(cropped, 1)
+        elif symmetry_axis == 'horizontal':
+            mirrored = cv2.flip(cropped, 0)
+        else:
+            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
+
+        # Ensure same shape for comparison
+        min_h, min_w = min(cropped.shape[0], mirrored.shape[0]), min(cropped.shape[1], mirrored.shape[1])
+        cropped = cropped[:min_h, :min_w]
+        mirrored = mirrored[:min_h, :min_w]
+
+        # Skip tiny regions that SSIM can't process
+        if min_h < 7 or min_w < 7:
+            continue
+
+        # Compare using SSIM
+        #score = ssim(cropped, mirrored, data_range=255)
+        score = compute_symmetry_score(cropped, symmetry_axis, threshold=0.0)
+        if score > threshold:
+            region_out = output_mask[y0:y0+min_h, x0:x0+min_w]
+            region_out[cropped > 0] = np.maximum(region_out[cropped > 0], int(255 * score))
+        # if score > 0.55:
+        #     output_mask[y:y+h, x:x+w][region > 0] = 255*score
+
+    return output_mask
+
+def symmetry_felzenszwalb_reflection(image, scale=100, sigma=3, min_size=100, symmetry_axis='vertical',
+                                     min_region_size=100,threshold=0.55):
+    """
+    Detect symmetric regions using Felzenszwalb segmentation.
+
+    Args:
+        image: Input BGR image
+        scale: Float. Higher means larger clusters.
+        sigma: Smoothing prior to segmentation
+        min_size: Minimum component size
+        symmetry_axis: 'vertical' or 'horizontal'
+        min_region_size: Ignore regions smaller than this
+
+    Returns:
+        output_mask: Symmetry saliency map
+    """
+    image_float = img_as_float(image)
+    segments = felzenszwalb(image_float, scale=scale, sigma=sigma, min_size=min_size)
+
+    output_mask = np.zeros(image.shape[:2], dtype=np.uint8)
+
+    for seg_val in np.unique(segments):
+        mask = (segments == seg_val).astype(np.uint8) * 255
+
+        if cv2.countNonZero(mask) < min_region_size:
+            continue
+
+        x, y, w, h = cv2.boundingRect(mask)
+        region = mask[y:y + h, x:x + w]
+
+        # Mirror the region
+        if symmetry_axis == 'vertical':
+            mirrored = cv2.flip(region, 1)
+        elif symmetry_axis == 'horizontal':
+            mirrored = cv2.flip(region, 0)
+        else:
+            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
+
+        # Ensure compatible shapes
+        min_h, min_w = min(region.shape[0], mirrored.shape[0]), min(region.shape[1], mirrored.shape[1])
+        region = region[:min_h, :min_w]
+        mirrored = mirrored[:min_h, :min_w]
+
+        if min_h < 7 or min_w < 7:
+            continue  # too small for SSIM
+
+        #score = ssim(region, mirrored, data_range=255)
+        score = compute_symmetry_score(region, symmetry_axis, threshold=0.0)
+        if score > threshold:
+            region_out = output_mask[y:y + min_h, x:x + min_w]
+            region_out[region > 0] = np.maximum(region_out[region > 0], (255 * score).astype(np.uint8))
+
+    return output_mask
+
+def symmetry_watershed_reflection(image, symmetry_axis='vertical', min_region_size=100, sigma_blur=4,threshold=0.55):
+    """
+    Detect symmetric regions using Watershed segmentation.
+
+    Args:
+        image: Input BGR image.
+        symmetry_axis: 'vertical' or 'horizontal'
+        min_region_size: Minimum region size to keep.
+        sigma_blur: Gaussian blur sigma before edge detection
+
+    Returns:
+        output_mask: Symmetry saliency map
+    """
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    # Step 1: Edge map via Sobel
+    gradient = sobel(gray)
+
+    # Step 2: Markers from local maxima in distance transform
+    distance = cv2.GaussianBlur(gray, (0, 0), sigma_blur)
+    distance = cv2.distanceTransform((gray > 40).astype(np.uint8), cv2.DIST_L2, 5)
+    coordinates = peak_local_max(distance, footprint=np.ones((65, 65)), labels=gray)
+    local_maxi = np.zeros_like(gray, dtype=bool)
+    local_maxi[tuple(coordinates.T)] = True
+    markers = label(local_maxi)
+
+    # Step 3: Apply watershed
+    segments = watershed(gradient, markers, mask=gray > 50)
+
+    output_mask = np.zeros_like(gray, dtype=np.uint8)
+
+    for seg_val in np.unique(segments):
+        if seg_val == 0:
+            continue
+
+        mask = (segments == seg_val).astype(np.uint8) * 255
+        if cv2.countNonZero(mask) < min_region_size:
+            continue
+
+        x, y, w, h = cv2.boundingRect(mask)
+        region = mask[y:y+h, x:x+w]
+
+        if symmetry_axis == 'vertical':
+            mirrored = cv2.flip(region, 1)
+        elif symmetry_axis == 'horizontal':
+            mirrored = cv2.flip(region, 0)
+        else:
+            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
+
+        min_h, min_w = min(region.shape[0], mirrored.shape[0]), min(region.shape[1], mirrored.shape[1])
+        region = region[:min_h, :min_w]
+        mirrored = mirrored[:min_h, :min_w]
+
+        if min_h < 7 or min_w < 7:
+            continue
+
+        #scoreo = ssim(region, mirrored, data_range=255)
+        score = compute_symmetry_score(region,symmetry_axis,threshold=0.0)
+
+        if score > threshold:
+            region_out = output_mask[y:y+min_h, x:x+min_w]
+            region_out[region > 0] = np.maximum(region_out[region > 0], (255 * score).astype(np.uint8))
+
+    return output_mask
+
+# objects_horizontal
+
+symmetry_axis = 'horizontal'
+
+def symmetry_superpixel_reflection_h(image, num_segments=40, symmetry_axis='horizontal', min_region_size=30,threshold=0.55):
+    image_float = img_as_float(image)
+    segments = slic(image_float, n_segments=num_segments, compactness=10, sigma=4, start_label=1)
+
+    output_mask = np.zeros(image.shape[:2], dtype=np.uint8)
+
+    for seg_val in np.unique(segments):
+        mask = (segments == seg_val).astype(np.uint8) * 255
+
+        # Skip small regions
+        if cv2.countNonZero(mask) < min_region_size:
+            continue
+
+        x, y, w, h = cv2.boundingRect(mask)
+        region = mask[y:y+h, x:x+w]
+
+        # Mirror along axis
+        if symmetry_axis == 'vertical':
+            mirrored = cv2.flip(region, 1)
+        elif symmetry_axis == 'horizontal':
+            mirrored = cv2.flip(region, 0)
+        else:
+            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
+
+        # Crop to the smallest overlapping shape
+        min_h, min_w = min(region.shape[0], mirrored.shape[0]), min(region.shape[1], mirrored.shape[1])
+        region = region[:min_h, :min_w]
+        mirrored = mirrored[:min_h, :min_w]
+
+        # Compare region and its reflection
+        score = compute_symmetry_score(region, symmetry_axis, threshold=0.0)
+
+        #score=compute_symmetry_score(mask,symmetry_axis,threshold)
+        if score > threshold:
+            output_mask[y:y+h, x:x+w][region > 0] = 255*score
+
+    return output_mask
+
+
+def symmetry_superpixel_reflection_preproc_h(image, num_segments=40, symmetry_axis='horizontal', min_region_size=30,threshold=0.55):
+    image_float = img_as_float(image)
+    #segments = slic(image_float, n_segments=num_segments, compactness=10, sigma=4, start_label=1)
+    segments = preprocess_and_segment_superpixels(image, num_segments=60, compactness=10, sigma=1)
+    output_mask = np.zeros(image.shape[:2], dtype=np.uint8)
+
+    for seg_val in np.unique(segments):
+        mask = (segments == seg_val).astype(np.uint8) * 255
+
+        # Skip small regions
+        if cv2.countNonZero(mask) < min_region_size:
+            continue
+
+        x, y, w, h = cv2.boundingRect(mask)
+        region = mask[y:y+h, x:x+w]
+
+        # Mirror along axis
+        if symmetry_axis == 'vertical':
+            mirrored = cv2.flip(region, 1)
+        elif symmetry_axis == 'horizontal':
+            mirrored = cv2.flip(region, 0)
+        else:
+            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
+
+        # Crop to the smallest overlapping shape
+        min_h, min_w = min(region.shape[0], mirrored.shape[0]), min(region.shape[1], mirrored.shape[1])
+        region = region[:min_h, :min_w]
+        mirrored = mirrored[:min_h, :min_w]
+
+        # Compare region and its reflection
+        #score = ssim(region, mirrored)
+        score = compute_symmetry_score(region, symmetry_axis, threshold=0.0)
+        if score > threshold:
+            output_mask[y:y+h, x:x+w][region > 0] = 255*score
+
+    return output_mask
+
+def symmetry_seeded_region_reflection_h(image, symmetry_axis='horizontal', min_region_size=30, sigma=5,threshold=0.55):
+    """
+    Region symmetry detection using seeded region growing from intensity maxima.
+    """
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray_blurred = gaussian(gray, sigma=sigma)
+
+    # Use local maxima as seeds (ensure float64 image for peak_local_max)
+    coordinates = peak_local_max(gray_blurred, min_distance=20, threshold_abs=0.3)
+
+    output_mask = np.zeros_like(gray, dtype=np.uint8)
+
+    for y, x in coordinates:
+        # Perform flood fill from the seed point
+        region = flood(gray, seed_point=(y, x), tolerance=25)
+
+        # Skip if region is invalid or empty
+        if region is None or not np.any(region):
+            continue
+
+        # Create binary mask
+        region_mask = np.zeros_like(gray, dtype=np.uint8)
+        region_mask[region] = 255
+
+        # Skip small regions
+        if cv2.countNonZero(region_mask) < min_region_size:
+            continue
+
+        # Bounding box for the region
+        x0, y0, w, h = cv2.boundingRect(region_mask)
+        cropped = region_mask[y0:y0+h, x0:x0+w]
+
+        # Reflect the cropped region
+        if symmetry_axis == 'vertical':
+            mirrored = cv2.flip(cropped, 1)
+        elif symmetry_axis == 'horizontal':
+            mirrored = cv2.flip(cropped, 0)
+        else:
+            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
+
+        # Ensure same shape for comparison
+        min_h, min_w = min(cropped.shape[0], mirrored.shape[0]), min(cropped.shape[1], mirrored.shape[1])
+        cropped = cropped[:min_h, :min_w]
+        mirrored = mirrored[:min_h, :min_w]
+
+        # Skip tiny regions that SSIM can't process
+        if min_h < 7 or min_w < 7:
+            continue
+
+        # Compare using SSIM
+        #score = ssim(cropped, mirrored, data_range=255)
+        score = compute_symmetry_score(cropped, symmetry_axis, threshold=0.0)
+        if score > threshold:
+            region_out = output_mask[y0:y0+min_h, x0:x0+min_w]
+            region_out[cropped > 0] = np.maximum(region_out[cropped > 0], int(255 * score))
+        # if score > 0.55:
+        #     output_mask[y:y+h, x:x+w][region > 0] = 255*score
+
+    return output_mask
+
+def symmetry_felzenszwalb_reflection_h(image, scale=100, sigma=3, min_size=100, symmetry_axis='horizontal',
+                                     min_region_size=100,threshold=0.55):
+    """
+    Detect symmetric regions using Felzenszwalb segmentation.
+
+    Args:
+        image: Input BGR image
+        scale: Float. Higher means larger clusters.
+        sigma: Smoothing prior to segmentation
+        min_size: Minimum component size
+        symmetry_axis: 'vertical' or 'horizontal'
+        min_region_size: Ignore regions smaller than this
+
+    Returns:
+        output_mask: Symmetry saliency map
+    """
+    image_float = img_as_float(image)
+    segments = felzenszwalb(image_float, scale=scale, sigma=sigma, min_size=min_size)
+
+    output_mask = np.zeros(image.shape[:2], dtype=np.uint8)
+
+    for seg_val in np.unique(segments):
+        mask = (segments == seg_val).astype(np.uint8) * 255
+
+        if cv2.countNonZero(mask) < min_region_size:
+            continue
+
+        x, y, w, h = cv2.boundingRect(mask)
+        region = mask[y:y + h, x:x + w]
+
+        # Mirror the region
+        if symmetry_axis == 'vertical':
+            mirrored = cv2.flip(region, 1)
+        elif symmetry_axis == 'horizontal':
+            mirrored = cv2.flip(region, 0)
+        else:
+            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
+
+        # Ensure compatible shapes
+        min_h, min_w = min(region.shape[0], mirrored.shape[0]), min(region.shape[1], mirrored.shape[1])
+        region = region[:min_h, :min_w]
+        mirrored = mirrored[:min_h, :min_w]
+
+        if min_h < 7 or min_w < 7:
+            continue  # too small for SSIM
+
+        #score = ssim(region, mirrored, data_range=255)
+        score = compute_symmetry_score(region, symmetry_axis, threshold=0.0)
+        if score > threshold:
+            region_out = output_mask[y:y + min_h, x:x + min_w]
+            region_out[region > 0] = np.maximum(region_out[region > 0], (255 * score).astype(np.uint8))
+
+    return output_mask
+
+def symmetry_watershed_reflection_h(image, symmetry_axis='horizontal', min_region_size=100, sigma_blur=4,threshold=0.55):
+    """
+    Detect symmetric regions using Watershed segmentation.
+
+    Args:
+        image: Input BGR image.
+        symmetry_axis: 'vertical' or 'horizontal'
+        min_region_size: Minimum region size to keep.
+        sigma_blur: Gaussian blur sigma before edge detection
+
+    Returns:
+        output_mask: Symmetry saliency map
+    """
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    # Step 1: Edge map via Sobel
+    gradient = sobel(gray)
+
+    # Step 2: Markers from local maxima in distance transform
+    distance = cv2.GaussianBlur(gray, (0, 0), sigma_blur)
+    distance = cv2.distanceTransform((gray > 40).astype(np.uint8), cv2.DIST_L2, 5)
+    coordinates = peak_local_max(distance, footprint=np.ones((65, 65)), labels=gray)
+    local_maxi = np.zeros_like(gray, dtype=bool)
+    local_maxi[tuple(coordinates.T)] = True
+    markers = label(local_maxi)
+
+    # Step 3: Apply watershed
+    segments = watershed(gradient, markers, mask=gray > 50)
+
+    output_mask = np.zeros_like(gray, dtype=np.uint8)
+
+    for seg_val in np.unique(segments):
+        if seg_val == 0:
+            continue
+
+        mask = (segments == seg_val).astype(np.uint8) * 255
+        if cv2.countNonZero(mask) < min_region_size:
+            continue
+
+        x, y, w, h = cv2.boundingRect(mask)
+        region = mask[y:y+h, x:x+w]
+
+        if symmetry_axis == 'vertical':
+            mirrored = cv2.flip(region, 1)
+        elif symmetry_axis == 'horizontal':
+            mirrored = cv2.flip(region, 0)
+        else:
+            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
+
+        min_h, min_w = min(region.shape[0], mirrored.shape[0]), min(region.shape[1], mirrored.shape[1])
+        region = region[:min_h, :min_w]
+        mirrored = mirrored[:min_h, :min_w]
+
+        if min_h < 7 or min_w < 7:
+            continue
+
+        #scoreo = ssim(region, mirrored, data_range=255)
+        score = compute_symmetry_score(region,symmetry_axis,threshold=0.0)
+
+        if score > threshold:
+            region_out = output_mask[y:y+min_h, x:x+min_w]
+            region_out[region > 0] = np.maximum(region_out[region > 0], (255 * score).astype(np.uint8))
+
+    return output_mask
+
+# utils for symmetry functions:
 
 def preprocess_and_segment_superpixels(image, num_segments=60, compactness=10, sigma=1):
     """
@@ -543,217 +1254,6 @@ def preprocess_and_segment_superpixels(image, num_segments=60, compactness=10, s
 
     return segments
 
-def symmetry_superpixel_reflection_preproc(image, num_segments=40, symmetry_axis='vertical', min_region_size=30):
-    image_float = img_as_float(image)
-    #segments = slic(image_float, n_segments=num_segments, compactness=10, sigma=4, start_label=1)
-    segments = preprocess_and_segment_superpixels(image, num_segments=60, compactness=10, sigma=1)
-    output_mask = np.zeros(image.shape[:2], dtype=np.uint8)
-
-    for seg_val in np.unique(segments):
-        mask = (segments == seg_val).astype(np.uint8) * 255
-
-        # Skip small regions
-        if cv2.countNonZero(mask) < min_region_size:
-            continue
-
-        x, y, w, h = cv2.boundingRect(mask)
-        region = mask[y:y+h, x:x+w]
-
-        # Mirror along axis
-        if symmetry_axis == 'vertical':
-            mirrored = cv2.flip(region, 1)
-        elif symmetry_axis == 'horizontal':
-            mirrored = cv2.flip(region, 0)
-        else:
-            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
-
-        # Crop to the smallest overlapping shape
-        min_h, min_w = min(region.shape[0], mirrored.shape[0]), min(region.shape[1], mirrored.shape[1])
-        region = region[:min_h, :min_w]
-        mirrored = mirrored[:min_h, :min_w]
-
-        # Compare region and its reflection
-        score = ssim(region, mirrored)
-        if score > 0.55:
-            output_mask[y:y+h, x:x+w][region > 0] = 255*score
-
-    return output_mask
-
-def symmetry_seeded_region_reflection(image, symmetry_axis='vertical', min_region_size=30, sigma=5):
-    """
-    Region symmetry detection using seeded region growing from intensity maxima.
-    """
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    gray_blurred = gaussian(gray, sigma=sigma)
-
-    # Use local maxima as seeds (ensure float64 image for peak_local_max)
-    coordinates = peak_local_max(gray_blurred, min_distance=20, threshold_abs=0.3)
-
-    output_mask = np.zeros_like(gray, dtype=np.uint8)
-
-    for y, x in coordinates:
-        # Perform flood fill from the seed point
-        region = flood(gray, seed_point=(y, x), tolerance=25)
-
-        # Skip if region is invalid or empty
-        if region is None or not np.any(region):
-            continue
-
-        # Create binary mask
-        region_mask = np.zeros_like(gray, dtype=np.uint8)
-        region_mask[region] = 255
-
-        # Skip small regions
-        if cv2.countNonZero(region_mask) < min_region_size:
-            continue
-
-        # Bounding box for the region
-        x0, y0, w, h = cv2.boundingRect(region_mask)
-        cropped = region_mask[y0:y0+h, x0:x0+w]
-
-        # Reflect the cropped region
-        if symmetry_axis == 'vertical':
-            mirrored = cv2.flip(cropped, 1)
-        elif symmetry_axis == 'horizontal':
-            mirrored = cv2.flip(cropped, 0)
-        else:
-            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
-
-        # Ensure same shape for comparison
-        min_h, min_w = min(cropped.shape[0], mirrored.shape[0]), min(cropped.shape[1], mirrored.shape[1])
-        cropped = cropped[:min_h, :min_w]
-        mirrored = mirrored[:min_h, :min_w]
-
-        # Skip tiny regions that SSIM can't process
-        if min_h < 7 or min_w < 7:
-            continue
-
-        # Compare using SSIM
-        score = ssim(cropped, mirrored, data_range=255)
-        if score > 0.55:
-            region_out = output_mask[y0:y0+min_h, x0:x0+min_w]
-            region_out[cropped > 0] = np.maximum(region_out[cropped > 0], int(255 * score))
-
-    return output_mask
-
-def symmetry_felzenszwalb_reflection(image, scale=100, sigma=3, min_size=100, symmetry_axis='vertical',
-                                     min_region_size=100):
-    """
-    Detect symmetric regions using Felzenszwalb segmentation.
-
-    Args:
-        image: Input BGR image
-        scale: Float. Higher means larger clusters.
-        sigma: Smoothing prior to segmentation
-        min_size: Minimum component size
-        symmetry_axis: 'vertical' or 'horizontal'
-        min_region_size: Ignore regions smaller than this
-
-    Returns:
-        output_mask: Symmetry saliency map
-    """
-    image_float = img_as_float(image)
-    segments = felzenszwalb(image_float, scale=scale, sigma=sigma, min_size=min_size)
-
-    output_mask = np.zeros(image.shape[:2], dtype=np.uint8)
-
-    for seg_val in np.unique(segments):
-        mask = (segments == seg_val).astype(np.uint8) * 255
-
-        if cv2.countNonZero(mask) < min_region_size:
-            continue
-
-        x, y, w, h = cv2.boundingRect(mask)
-        region = mask[y:y + h, x:x + w]
-
-        # Mirror the region
-        if symmetry_axis == 'vertical':
-            mirrored = cv2.flip(region, 1)
-        elif symmetry_axis == 'horizontal':
-            mirrored = cv2.flip(region, 0)
-        else:
-            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
-
-        # Ensure compatible shapes
-        min_h, min_w = min(region.shape[0], mirrored.shape[0]), min(region.shape[1], mirrored.shape[1])
-        region = region[:min_h, :min_w]
-        mirrored = mirrored[:min_h, :min_w]
-
-        if min_h < 7 or min_w < 7:
-            continue  # too small for SSIM
-
-        score = ssim(region, mirrored, data_range=255)
-        if score > 0.55:
-            region_out = output_mask[y:y + min_h, x:x + min_w]
-            region_out[region > 0] = np.maximum(region_out[region > 0], (255 * score).astype(np.uint8))
-
-    return output_mask
-
-def symmetry_watershed_reflection(image, symmetry_axis='vertical', min_region_size=100, sigma_blur=4):
-    """
-    Detect symmetric regions using Watershed segmentation.
-
-    Args:
-        image: Input BGR image.
-        symmetry_axis: 'vertical' or 'horizontal'
-        min_region_size: Minimum region size to keep.
-        sigma_blur: Gaussian blur sigma before edge detection
-
-    Returns:
-        output_mask: Symmetry saliency map
-    """
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
-    # Step 1: Edge map via Sobel
-    gradient = sobel(gray)
-
-    # Step 2: Markers from local maxima in distance transform
-    distance = cv2.GaussianBlur(gray, (0, 0), sigma_blur)
-    distance = cv2.distanceTransform((gray > 40).astype(np.uint8), cv2.DIST_L2, 5)
-    coordinates = peak_local_max(distance, footprint=np.ones((65, 65)), labels=gray)
-    local_maxi = np.zeros_like(gray, dtype=bool)
-    local_maxi[tuple(coordinates.T)] = True
-    markers = label(local_maxi)
-
-    # Step 3: Apply watershed
-    segments = watershed(gradient, markers, mask=gray > 50)
-
-    output_mask = np.zeros_like(gray, dtype=np.uint8)
-
-    for seg_val in np.unique(segments):
-        if seg_val == 0:
-            continue
-
-        mask = (segments == seg_val).astype(np.uint8) * 255
-        if cv2.countNonZero(mask) < min_region_size:
-            continue
-
-        x, y, w, h = cv2.boundingRect(mask)
-        region = mask[y:y+h, x:x+w]
-
-        if symmetry_axis == 'vertical':
-            mirrored = cv2.flip(region, 1)
-        elif symmetry_axis == 'horizontal':
-            mirrored = cv2.flip(region, 0)
-        else:
-            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
-
-        min_h, min_w = min(region.shape[0], mirrored.shape[0]), min(region.shape[1], mirrored.shape[1])
-        region = region[:min_h, :min_w]
-        mirrored = mirrored[:min_h, :min_w]
-
-        if min_h < 7 or min_w < 7:
-            continue
-
-        score = ssim(region, mirrored, data_range=255)
-        if score > 0.55:
-            region_out = output_mask[y:y+min_h, x:x+min_w]
-            region_out[region > 0] = np.maximum(region_out[region > 0], (255 * score).astype(np.uint8))
-
-    return output_mask
-
-# objects_horizontal
-
 def compute_symmetry_score(region_mask, symmetry_axis='vertical', threshold=0.05):
     """
     Computes symmetry score between a region and its reflection.
@@ -766,10 +1266,15 @@ def compute_symmetry_score(region_mask, symmetry_axis='vertical', threshold=0.05
     Returns:
         score (float): SSIM score if above threshold, otherwise 0.
     """
+    # Bounding box for the region
+    x0, y0, w, h = cv2.boundingRect(region_mask)
+    cropped = region_mask[y0:y0 + h, x0:x0 + w]
+
+    # Reflect the cropped region
     if symmetry_axis == 'vertical':
-        mirrored = cv2.flip(region_mask, 1)
+        mirrored = cv2.flip(cropped, 1)
     elif symmetry_axis == 'horizontal':
-        mirrored = cv2.flip(region_mask, 0)
+        mirrored = cv2.flip(cropped, 0)
     else:
         raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
 
@@ -782,300 +1287,5 @@ def compute_symmetry_score(region_mask, symmetry_axis='vertical', threshold=0.05
     # Compute SSIM
     score = ssim(region, mirrored, data_range=255)
     return score if score > threshold else 0
-
-
-symmetry_axis = 'horizontal'
-
-def symmetry_superpixel_reflection_h(image, num_segments=40, symmetry_axis='horizontal', min_region_size=30,threshold=0.55):
-    image_float = img_as_float(image)
-    segments = slic(image_float, n_segments=num_segments, compactness=10, sigma=4, start_label=1)
-
-    output_mask = np.zeros(image.shape[:2], dtype=np.uint8)
-
-    for seg_val in np.unique(segments):
-        mask = (segments == seg_val).astype(np.uint8) * 255
-
-        # Skip small regions
-        if cv2.countNonZero(mask) < min_region_size:
-            continue
-
-        x, y, w, h = cv2.boundingRect(mask)
-        region = mask[y:y+h, x:x+w]
-
-        # Mirror along axis
-        if symmetry_axis == 'vertical':
-            mirrored = cv2.flip(region, 1)
-        elif symmetry_axis == 'horizontal':
-            mirrored = cv2.flip(region, 0)
-        else:
-            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
-
-        # Crop to the smallest overlapping shape
-        min_h, min_w = min(region.shape[0], mirrored.shape[0]), min(region.shape[1], mirrored.shape[1])
-        region = region[:min_h, :min_w]
-        mirrored = mirrored[:min_h, :min_w]
-
-        # Compare region and its reflection
-        score = ssim(region, mirrored)
-
-        #score = compute_symmetry_score(mask, symmetry_axis, threshold)
-
-        if score > threshold:
-            output_mask[y:y+h, x:x+w][region > 0] = 255*score
-
-    return output_mask
-
-
-def preprocess_and_segment_superpixels_h(image, num_segments=60, compactness=10, sigma=1):
-    """
-    Applies edge-preserving preprocessing and SLIC segmentation.
-
-    Args:
-        image (np.ndarray): Input BGR image (uint8).
-        num_segments (int): Number of superpixels.
-        compactness (float): Balance between color and space proximity.
-        sigma (float): Sigma for bilateral filter.
-
-    Returns:
-        segments (np.ndarray): Superpixel labels (2D array).
-        preprocessed (np.ndarray): Preprocessed image used for segmentation.
-    """
-    # Convert to LAB for color-aware processing
-    lab_image = cv2.cvtColor(image, cv2.COLOR_BGR2Lab)
-
-    # Apply bilateral filter to each channel separately
-    filtered_channels = []
-    for i in range(3):
-        channel = lab_image[:, :, i]
-        filtered = cv2.bilateralFilter(channel, d=9, sigmaColor=sigma * 20, sigmaSpace=sigma * 20)
-        filtered_channels.append(filtered)
-
-    # Merge channels and convert to float
-    filtered_lab = cv2.merge(filtered_channels)
-    filtered_rgb = cv2.cvtColor(filtered_lab, cv2.COLOR_Lab2BGR)
-    filtered_rgb_float = img_as_float(filtered_rgb)
-
-    # Apply SLIC on filtered image
-    segments = slic(
-        filtered_rgb_float,
-        n_segments=num_segments,
-        compactness=compactness,
-        sigma=0,
-        start_label=1
-    )
-
-
-
-    return segments
-
-def symmetry_superpixel_reflection_preproc_h(image, num_segments=40, symmetry_axis='horizontal', min_region_size=30):
-    image_float = img_as_float(image)
-    #segments = slic(image_float, n_segments=num_segments, compactness=10, sigma=4, start_label=1)
-    segments = preprocess_and_segment_superpixels(image, num_segments=60, compactness=10, sigma=1)
-    output_mask = np.zeros(image.shape[:2], dtype=np.uint8)
-
-    for seg_val in np.unique(segments):
-        mask = (segments == seg_val).astype(np.uint8) * 255
-
-        # Skip small regions
-        if cv2.countNonZero(mask) < min_region_size:
-            continue
-
-        x, y, w, h = cv2.boundingRect(mask)
-        region = mask[y:y+h, x:x+w]
-
-        # Mirror along axis
-        if symmetry_axis == 'vertical':
-            mirrored = cv2.flip(region, 1)
-        elif symmetry_axis == 'horizontal':
-            mirrored = cv2.flip(region, 0)
-        else:
-            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
-
-        # Crop to the smallest overlapping shape
-        min_h, min_w = min(region.shape[0], mirrored.shape[0]), min(region.shape[1], mirrored.shape[1])
-        region = region[:min_h, :min_w]
-        mirrored = mirrored[:min_h, :min_w]
-
-        # Compare region and its reflection
-        score = ssim(region, mirrored)
-        if score > 0.55:
-            output_mask[y:y+h, x:x+w][region > 0] = 255*score
-
-    return output_mask
-
-def symmetry_seeded_region_reflection_h(image, symmetry_axis='horizontal', min_region_size=30, sigma=5):
-    """
-    Region symmetry detection using seeded region growing from intensity maxima.
-    """
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    gray_blurred = gaussian(gray, sigma=sigma)
-
-    # Use local maxima as seeds (ensure float64 image for peak_local_max)
-    coordinates = peak_local_max(gray_blurred, min_distance=20, threshold_abs=0.3)
-
-    output_mask = np.zeros_like(gray, dtype=np.uint8)
-
-    for y, x in coordinates:
-        # Perform flood fill from the seed point
-        region = flood(gray, seed_point=(y, x), tolerance=25)
-
-        # Skip if region is invalid or empty
-        if region is None or not np.any(region):
-            continue
-
-        # Create binary mask
-        region_mask = np.zeros_like(gray, dtype=np.uint8)
-        region_mask[region] = 255
-
-        # Skip small regions
-        if cv2.countNonZero(region_mask) < min_region_size:
-            continue
-
-        # Bounding box for the region
-        x0, y0, w, h = cv2.boundingRect(region_mask)
-        cropped = region_mask[y0:y0+h, x0:x0+w]
-
-        # Reflect the cropped region
-        if symmetry_axis == 'vertical':
-            mirrored = cv2.flip(cropped, 1)
-        elif symmetry_axis == 'horizontal':
-            mirrored = cv2.flip(cropped, 0)
-        else:
-            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
-
-        # Ensure same shape for comparison
-        min_h, min_w = min(cropped.shape[0], mirrored.shape[0]), min(cropped.shape[1], mirrored.shape[1])
-        cropped = cropped[:min_h, :min_w]
-        mirrored = mirrored[:min_h, :min_w]
-
-        # Skip tiny regions that SSIM can't process
-        if min_h < 7 or min_w < 7:
-            continue
-
-        # Compare using SSIM
-        score = ssim(cropped, mirrored, data_range=255)
-        if score > 0.55:
-            region_out = output_mask[y0:y0+min_h, x0:x0+min_w]
-            region_out[cropped > 0] = np.maximum(region_out[cropped > 0], int(255 * score))
-
-    return output_mask
-
-def symmetry_felzenszwalb_reflection_h(image, scale=100, sigma=3, min_size=100, symmetry_axis='horizontal',
-                                     min_region_size=100):
-    """
-    Detect symmetric regions using Felzenszwalb segmentation.
-
-    Args:
-        image: Input BGR image
-        scale: Float. Higher means larger clusters.
-        sigma: Smoothing prior to segmentation
-        min_size: Minimum component size
-        symmetry_axis: 'vertical' or 'horizontal'
-        min_region_size: Ignore regions smaller than this
-
-    Returns:
-        output_mask: Symmetry saliency map
-    """
-    image_float = img_as_float(image)
-    segments = felzenszwalb(image_float, scale=scale, sigma=sigma, min_size=min_size)
-
-    output_mask = np.zeros(image.shape[:2], dtype=np.uint8)
-
-    for seg_val in np.unique(segments):
-        mask = (segments == seg_val).astype(np.uint8) * 255
-
-        if cv2.countNonZero(mask) < min_region_size:
-            continue
-
-        x, y, w, h = cv2.boundingRect(mask)
-        region = mask[y:y + h, x:x + w]
-
-        # Mirror the region
-        if symmetry_axis == 'vertical':
-            mirrored = cv2.flip(region, 1)
-        elif symmetry_axis == 'horizontal':
-            mirrored = cv2.flip(region, 0)
-        else:
-            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
-
-        # Ensure compatible shapes
-        min_h, min_w = min(region.shape[0], mirrored.shape[0]), min(region.shape[1], mirrored.shape[1])
-        region = region[:min_h, :min_w]
-        mirrored = mirrored[:min_h, :min_w]
-
-        if min_h < 7 or min_w < 7:
-            continue  # too small for SSIM
-
-        score = ssim(region, mirrored, data_range=255)
-        if score > 0.55:
-            region_out = output_mask[y:y + min_h, x:x + min_w]
-            region_out[region > 0] = np.maximum(region_out[region > 0], (255 * score).astype(np.uint8))
-
-    return output_mask
-
-def symmetry_watershed_reflection_h(image, symmetry_axis='horizontal', min_region_size=100, sigma_blur=4):
-    """
-    Detect symmetric regions using Watershed segmentation.
-
-    Args:
-        image: Input BGR image.
-        symmetry_axis: 'vertical' or 'horizontal'
-        min_region_size: Minimum region size to keep.
-        sigma_blur: Gaussian blur sigma before edge detection
-
-    Returns:
-        output_mask: Symmetry saliency map
-    """
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
-    # Step 1: Edge map via Sobel
-    gradient = sobel(gray)
-
-    # Step 2: Markers from local maxima in distance transform
-    distance = cv2.GaussianBlur(gray, (0, 0), sigma_blur)
-    distance = cv2.distanceTransform((gray > 40).astype(np.uint8), cv2.DIST_L2, 5)
-    coordinates = peak_local_max(distance, footprint=np.ones((65, 65)), labels=gray)
-    local_maxi = np.zeros_like(gray, dtype=bool)
-    local_maxi[tuple(coordinates.T)] = True
-    markers = label(local_maxi)
-
-    # Step 3: Apply watershed
-    segments = watershed(gradient, markers, mask=gray > 50)
-
-    output_mask = np.zeros_like(gray, dtype=np.uint8)
-
-    for seg_val in np.unique(segments):
-        if seg_val == 0:
-            continue
-
-        mask = (segments == seg_val).astype(np.uint8) * 255
-        if cv2.countNonZero(mask) < min_region_size:
-            continue
-
-        x, y, w, h = cv2.boundingRect(mask)
-        region = mask[y:y+h, x:x+w]
-
-        if symmetry_axis == 'vertical':
-            mirrored = cv2.flip(region, 1)
-        elif symmetry_axis == 'horizontal':
-            mirrored = cv2.flip(region, 0)
-        else:
-            raise ValueError("symmetry_axis must be 'vertical' or 'horizontal'")
-
-        min_h, min_w = min(region.shape[0], mirrored.shape[0]), min(region.shape[1], mirrored.shape[1])
-        region = region[:min_h, :min_w]
-        mirrored = mirrored[:min_h, :min_w]
-
-        if min_h < 7 or min_w < 7:
-            continue
-
-        score = ssim(region, mirrored, data_range=255)
-        if score > 0.55:
-            region_out = output_mask[y:y+min_h, x:x+min_w]
-            region_out[region > 0] = np.maximum(region_out[region > 0], (255 * score).astype(np.uint8))
-
-    return output_mask
-
 
 
