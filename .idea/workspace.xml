@@ -6,12 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2ce17240-ad5d-497e-865e-5c0f1d396f86" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ga/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/ga/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ga/genetic.py" beforeDir="false" afterPath="$PROJECT_DIR$/ga/genetic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ga/run_ga.py" beforeDir="false" afterPath="$PROJECT_DIR$/ga/run_ga.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/heuristic_tester_local.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/heuristic_tester_local.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/heuristic_tester.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/src/heuristic_tester.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/heuristics.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/heuristics.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/saliency.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/saliency.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

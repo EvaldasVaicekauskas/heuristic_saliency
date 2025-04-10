@@ -1,17 +1,19 @@
 
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
+
 from scipy.ndimage import gaussian_gradient_magnitude
 
 from utils import create_hue_mask
 
-from skimage.segmentation import slic
+
 from skimage.color import rgb2lab
-from skimage.util import img_as_float
+
 from skimage import graph
 from skimage.feature import local_binary_pattern
 from skimage.filters.rank import entropy
-from skimage.morphology import disk
+
 
 from skimage.segmentation import slic
 from sklearn.preprocessing import StandardScaler
@@ -23,13 +25,22 @@ from skimage.filters import gaussian
 from skimage.segmentation import felzenszwalb
 from skimage.util import img_as_float
 
-from skimage.segmentation import watershed
-from skimage.feature import peak_local_max
+
 from skimage.morphology import disk
 from skimage.measure import label
 from skimage.filters import sobel
 from skimage.metrics import structural_similarity as ssim
 
+from skimage.segmentation import watershed
+
+from skimage.feature import peak_local_max
+
+from skimage.color import lab2rgb
+
+
+from collections import defaultdict
+import matplotlib.pyplot as plt
+from sklearn.metrics import pairwise_distances
 
 def detect_red_saliency(image):
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
@@ -41,6 +52,417 @@ def detect_red_saliency(image):
     mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
     red_mask = mask1 + mask2
     return cv2.normalize(red_mask, None, 0, 255, cv2.NORM_MINMAX)
+
+### Grouping and binding
+
+## Grouping
+
+# Colour matching
+
+def extract_colored_blobs_by_histogram_cc_bin(image, num_bins=2, min_blob_size=25,max_blob_size=50,sigma_percent=0.0032):
+    """
+    Segment image into color blobs using LAB color histogram binning (no superpixels).
+    Features are assigned based on histogram bin center rather than per-blob mean.
+
+    Returns:
+        features: LAB bin center of each blob
+        positions: XY centroid of each blob (normalized)
+        masks: Binary masks of blobs
+    """
+    # 0. Blur the image
+    sigma = sigma_percent*np.sqrt(image.shape[0]**2 +  image.shape[1]**2)
+    image_blur = cv2.GaussianBlur(image, (0, 0), sigmaX=sigma, sigmaY=sigma)
+
+
+    # 1. Convert to LAB space
+    lab = cv2.cvtColor(image_blur, cv2.COLOR_BGR2LAB)
+    lab_float = lab.astype(np.float32)
+
+    # 2. Quantize LAB into histogram bins
+    bins = np.linspace(0, 256, num_bins + 1)
+    bin_centers = 0.5 * (bins[:-1] + bins[1:])  # Center of each bin
+    bin_indices = np.digitize(lab_float.reshape(-1, 3), bins) - 1  # Ensure valid indices
+    bin_indices = np.clip(bin_indices, 0, num_bins - 1)
+
+    height, width = image.shape[:2]
+    features = []
+    positions = []
+    masks = []
+
+    unique_bins = np.unique(bin_indices, axis=0)
+    print(f"Used color bins: {len(unique_bins)} / {num_bins ** 3} total")
+
+    # Iterate over unique bin triplets (L*, a*, b* bin index)
+    for bin_id in np.unique(bin_indices, axis=0):
+        # Create mask for pixels matching this bin
+        mask = np.all(bin_indices == bin_id, axis=1).reshape(height, width).astype(np.uint8)
+
+        # Connected component analysis
+        num_labels, labels = cv2.connectedComponents(mask)
+
+        for label in range(1, num_labels):  # Skip background
+            blob_mask = (labels == label).astype(np.uint8)
+
+            if cv2.countNonZero(blob_mask) < min_blob_size:
+                continue
+            if cv2.countNonZero(blob_mask) > max_blob_size:
+                continue
+
+            # LAB feature is now the bin center, not mean of pixels
+            lab_bin = [bin_centers[i] for i in bin_id]
+
+            # Compute centroid position
+            ys, xs = np.where(blob_mask > 0)
+            cy, cx = ys.mean() / height, xs.mean() / width
+
+            features.append(lab_bin)
+            positions.append([cx, cy])
+            masks.append(blob_mask)
+
+    plot_colored_blob_masks_corrected(image, features, positions, masks, bin_indices, lab)
+
+    return np.array(features, dtype=np.float32), np.array(positions, dtype=np.float32), masks
+
+def grouping_color_histogram_bins(image, num_bins=6, min_blob_size_percent=0.00026,max_blob_size_percent=0.09,max_group_area_ratio=0.05):
+    """
+    Group blobs by LAB histogram bin and score perceptual grouping using position proximity.
+
+    Args:
+        image: Input BGR image.
+        num_bins: Number of histogram bins per LAB channel.
+        min_blob_size: Minimum blob size in pixels.
+
+    Returns:
+        Saliency map (uint8, 0–255).
+    """
+
+
+    image_area = image.shape[0] * image.shape[1]
+
+    min_blob_size = int(min_blob_size_percent*image_area)
+    max_blob_size = int(max_blob_size_percent * image_area)
+
+    # Step 1: Extract color-bin blobs
+    features, positions, masks = extract_colored_blobs_by_histogram_cc_bin(
+        image, num_bins=num_bins, min_blob_size=min_blob_size,max_blob_size=max_blob_size
+    )
+
+    if len(features) == 0:
+        return np.zeros(image.shape[:2], dtype=np.uint8)
+
+    print(f"Total blobs: {len(masks)}")
+    print(f"Unique color bins: {len(np.unique(features, axis=0))}")
+
+    # Step 2: Group blobs by LAB bin value
+    grouped_blobs = defaultdict(list)
+    for idx, feat in enumerate(features):
+        grouped_blobs[tuple(feat)].append(idx)
+
+
+    # Step 3 (debugging groups)
+    clusters = np.full(len(masks), -1)
+    for group_id, (lab_bin, indices) in enumerate(grouped_blobs.items()):
+        for idx in indices:
+            clusters[idx] = group_id
+
+    debug_cluster_overlay(image, clusters, masks)
+
+    # Step 3: Compute saliency per group
+    saliency_map = np.zeros(image.shape[:2], dtype=np.float32)
+
+    for lab_bin, member_indices in grouped_blobs.items():
+        if len(member_indices) < 3:
+            continue  # Skip singleton groups
+        if len(member_indices) > 45:
+            continue  # Skip large groups
+
+        # Check total area of group blobs
+        group_area = sum(cv2.countNonZero(masks[idx]) for idx in member_indices)
+        if group_area > max_group_area_ratio * image_area:
+            continue  # Skip overly large groups (likely background)
+
+
+        group_strength = compute_group_saliency(
+            member_indices, features, positions,w_m=0.5, w_f=0, w_p=0.0,  mode='combined_colour'  # or 'combined'
+        )
+
+        for idx in member_indices:
+            saliency_map[masks[idx] > 0] = np.maximum(saliency_map[masks[idx] > 0], group_strength)
+
+    return cv2.normalize(saliency_map, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+
+def debug_cluster_overlay(image, clusters, masks):
+    """
+    Visualizes clustered blobs with distinct colors.
+    """
+    overlay = image.copy()
+
+    for idx, mask in enumerate(masks):
+        if clusters[idx] == -1:
+            continue  # Skip noise
+
+        color = np.array(cluster_colors(clusters[idx])[:3]) * 255
+        color = color.astype(np.uint8)
+
+        # Find where to apply overlay
+        mask_indices = np.where(mask > 0)
+        overlay_region = overlay[mask_indices]
+
+        # Expand color to match shape
+        color_overlay = np.tile(color, (overlay_region.shape[0], 1))
+
+        # Blend
+        blended = cv2.addWeighted(overlay_region, 0.5, color_overlay, 0.5, 0)
+        overlay[mask_indices] = blended
+
+    # Plot
+    plt.imshow(cv2.cvtColor(overlay, cv2.COLOR_BGR2RGB))
+    plt.title("Grouped Blobs")
+    plt.axis("off")
+    plt.tight_layout()
+    plt.show()
+
+def cluster_colors(cluster_id):
+    """
+    Get a distinct color for a cluster using matplotlib's color cycle.
+    """
+    cmap = plt.get_cmap("tab20")  # or 'hsv', 'nipy_spectral' for more variety
+    return cmap(cluster_id % 20)  # Returns RGBA (0–1 range)
+
+def compute_group_saliency(member_indices, features, positions, w_m=1.0, w_f=1, w_p=1.0, mode='combined_colour'):
+    """
+    Compute saliency of a group based on its size, spatial proximity, and feature consistency.
+
+    Args:
+        member_indices: indices of blobs in the group
+        features: full feature array (e.g., LAB)
+        positions: full normalized (x, y) centroid positions
+        mode: 'size', 'spatial', 'feature', or 'combined'
+
+    Returns:
+        Float saliency score (can be scaled later)
+    """
+    if len(member_indices) == 0:
+        return 0.0
+    if len(member_indices) == 1:
+        return 1.0  # Default score for single blob
+
+    features_only = features[member_indices]
+    positions_only = positions[member_indices]
+
+    score_size = 1*len(member_indices)
+    score_spatial = 1 / (np.mean(pairwise_distances(positions_only)) + 1e-5)
+    score_feature = 1 / (np.mean(pairwise_distances(features_only)) + 1e-5)
+
+    if mode == 'size':
+        return score_size
+    elif mode == 'spatial':
+        return score_spatial
+    elif mode == 'feature':
+        return score_feature
+    elif mode == 'combined_colour':
+        print(f"scores: {score_size,score_spatial,score_size * score_spatial}")
+        return score_size * score_spatial
+
+    elif mode == 'combined_line':
+        w_size, w_spatial, w_feature = w_m, w_p, w_f
+
+        log_score = (
+            w_size    * np.log(score_size + 1e-5) +
+            w_spatial * np.log(score_spatial + 1e-5) +
+            w_feature * np.log(score_feature + 1e-5)
+        )
+        score = np.exp(log_score)  # Convert back to normal scale
+        print(f"log-scaled: {score_size=}, {score_spatial=}, {score_feature=}, final={score}")
+        return score
+    else:
+        raise ValueError(f"Unknown scoring mode: {mode}")
+
+def plot_colored_blob_masks_corrected(image, features_lab, positions, masks, bin_indices, lab_image):
+    """
+    Visualizes:
+    1. Raw bin-wise color masks from feature LAB values.
+    2. Final blob masks colored by LAB.
+
+    Args:
+        image: Original input image (BGR).
+        features_lab: LAB mean of each blob (OpenCV style).
+        positions: Not used here.
+        masks: List of binary masks per blob.
+        bin_indices: Original bin index array (H*W, 3).
+        lab_image: LAB image used to derive bin_indices.
+    """
+    height, width = image.shape[:2]
+    lab_raw = np.zeros((height, width, 3), dtype=np.float32)
+    lab_blob = np.zeros((height, width, 3), dtype=np.float32)
+
+    # --- RAW MASKS: Go through all pixels and assign average color of bin
+    flat_lab = lab_image.reshape(-1, 3)
+    flat_lab_raw = lab_raw.reshape(-1, 3)
+
+    # Unique bin ids and their mean colors
+    unique_bins = np.unique(bin_indices, axis=0)
+    bin_colors = {}
+
+    for bin_id in unique_bins:
+        mask = np.all(bin_indices == bin_id, axis=1)
+        mean_lab = flat_lab[mask].mean(axis=0)
+        lab_sk = np.array([
+            mean_lab[0] * (100.0 / 255.0),
+            mean_lab[1] - 128.0,
+            mean_lab[2] - 128.0
+        ], dtype=np.float32)
+        bin_colors[tuple(bin_id)] = lab_sk
+        flat_lab_raw[mask] = lab_sk
+
+    lab_raw = flat_lab_raw.reshape(height, width, 3)
+
+    # --- BLOB MASKS
+    for lab_color, mask in zip(features_lab, masks):
+        lab_sk = np.array([
+            lab_color[0] * (100.0 / 255.0),
+            lab_color[1] - 128.0,
+            lab_color[2] - 128.0
+        ], dtype=np.float32)
+        lab_blob[mask.astype(bool)] = lab_sk
+
+    # Convert and clip to avoid visual artifacts
+    rgb_raw = np.clip(lab2rgb(lab_raw), 0, 1)
+    rgb_blob = np.clip(lab2rgb(lab_blob), 0, 1)
+
+    rgb_raw_vis = (rgb_raw * 255).astype(np.uint8)
+    rgb_blob_vis = (rgb_blob * 255).astype(np.uint8)
+
+    # Plotting
+    fig, axs = plt.subplots(1, 3, figsize=(14, 6))
+    axs[0].imshow(rgb_raw_vis)
+    axs[0].set_title("Raw Color Bin Masks")
+    axs[0].axis("off")
+
+    axs[1].imshow(rgb_blob_vis)
+    axs[1].set_title("Connected Color Blobs")
+    axs[1].axis("off")
+
+    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+    axs[2].imshow(image_rgb)
+    axs[2].set_title("Original image")
+    axs[2].axis("off")
+
+    plt.tight_layout()
+    plt.show()
+
+# Line grouping
+
+def line_extraction(image, sigma_percent = 0.0016*0.5, min_length_ratio=0.01, max_length_ratio=0.5):
+
+    # 0. Blur the image
+    sigma = sigma_percent * np.sqrt(image.shape[0] ** 2 + image.shape[1] ** 2)
+    image_blur = cv2.GaussianBlur(image, (0, 0), sigmaX=sigma, sigmaY=sigma)
+
+    height, width = image.shape[:2]
+    gray = cv2.cvtColor(image_blur, cv2.COLOR_BGR2GRAY)
+
+    lsd = cv2.createLineSegmentDetector(refine=2)
+    lines = lsd.detect(gray)[0]
+
+    minLineLength = 0.047*np.sqrt(image.shape[0] ** 2 + image.shape[1] ** 2)
+    maxLineGap = 0.011*np.sqrt(image.shape[0] ** 2 + image.shape[1] ** 2)
+
+    edges = cv2.Canny(gray, 60, 200)
+    lines = cv2.HoughLinesP(edges, rho=3, theta=np.pi / 180, threshold=40,
+                            minLineLength=minLineLength, maxLineGap=maxLineGap)
+
+
+    features = []
+    positions = []
+    masks = []
+
+    min_length = min_length_ratio * max(width, height)
+    max_length = max_length_ratio * max(width, height)
+
+    if lines is not None:
+        for line in lines:
+            x1, y1, x2, y2 = line[0]
+            length = np.hypot(x2 - x1, y2 - y1)
+            if length < min_length or length > max_length:
+                continue
+
+            orientation = np.arctan2(y2 - y1, x2 - x1)
+            normalized_length = length / max(width, height)
+            mx, my = (x1 + x2) / 2 / width, (y1 + y2) / 2 / height
+
+            # Create binary mask for this line using OpenCV line with thickness
+            mask = np.zeros((height, width), dtype=np.uint8)
+            thickness = int(np.clip(normalized_length * max(width, height) * 0.01, 3, 20))
+            cv2.line(mask, (int(x1), int(y1)), (int(x2), int(y2)), color=255, thickness=thickness)
+
+            features.append([orientation, normalized_length])
+            positions.append([mx, my])
+            masks.append(mask)
+
+        return np.array(features, dtype=np.float32), np.array(positions, dtype=np.float32), masks
+
+def group_lines_by_orientation(features, masks, positions, image_shape, num_bins=12):
+    orientation_bins = np.linspace(-np.pi, np.pi, num_bins + 1)
+    grouped = defaultdict(list)
+
+    for i, (orientation, length) in enumerate(features):
+        bin_idx = np.digitize(orientation, orientation_bins) - 1
+        bin_idx = np.clip(bin_idx, 0, num_bins - 1)
+        grouped[bin_idx].append(i)
+
+    clusters = np.full(len(masks), -1)
+    for group_id, (bin_idx, indices) in enumerate(grouped.items()):
+        for idx in indices:
+            clusters[idx] = group_id
+
+    # Visualization
+    overlay = np.zeros((*image_shape[:2], 3), dtype=np.uint8)
+    colors = plt.cm.get_cmap("tab20", num_bins)
+    for i, mask in enumerate(masks):
+        if clusters[i] == -1:
+            continue
+        color = np.array(colors(clusters[i])[:3]) * 255
+        overlay[mask > 0] = color.astype(np.uint8)
+
+    plt.figure(figsize=(10, 6))
+    plt.imshow(cv2.cvtColor(overlay, cv2.COLOR_BGR2RGB))
+    plt.title("Line Orientation Groups")
+    plt.axis("off")
+    plt.tight_layout()
+    plt.show()
+
+    return clusters
+
+def grouping_line_hough(image, num_bins=36, max_lines = 15):
+
+    features, positions, masks = line_extraction(image)
+
+    if len(features) == 0:
+        return np.zeros(image.shape[:2], dtype=np.uint8)
+
+    clusters = group_lines_by_orientation(features, masks, positions, image.shape, num_bins=num_bins)
+
+    saliency_map = np.zeros(image.shape[:2], dtype=np.float32)
+    for group_id in np.unique(clusters):
+        if group_id == -1:
+            continue
+
+        member_indices = np.where(clusters == group_id)[0]
+        if len(member_indices) < 2:
+            continue
+        if len(member_indices) > max_lines:
+            continue
+
+        group_strength = compute_group_saliency(member_indices, features, positions,w_m=0.4, w_f=1, w_p=0.3,  mode='combined_line')
+
+        for idx in member_indices:
+            saliency_map[masks[idx] > 0] = np.maximum(saliency_map[masks[idx] > 0], group_strength)
+
+    return cv2.normalize(saliency_map, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+
+
 
 ### Isolation
 
@@ -355,34 +777,10 @@ def isolation_intensity_global_abs(image):
     score = score_absolute_difference(feature, context)
     return normalize_to_uint8(score)
 
-def isolation_intensity_global_zscore(image):
-    feature = intensity_map(image)
-    context = global_mean_context(feature)
-    score = score_zscore(feature, context)
-    return normalize_to_uint8(score)
-
-def isolation_intensity_global_top(image):
-    feature = intensity_map(image)
-    context = global_mean_context(feature)
-    score = score_threshold_top_percent(feature, context,95)
-    return normalize_to_uint8(score)
-
 def isolation_intensity_local_abs(image):
     feature = intensity_map(image)
     context = local_blur_context(feature)
     score = score_absolute_difference(feature, context)
-    return normalize_to_uint8(score)
-
-def isolation_intensity_local_zscore(image):
-    feature = intensity_map(image)
-    context = local_blur_context(feature)
-    score = score_zscore(feature, context)
-    return normalize_to_uint8(score)
-
-def isolation_intensity_local_top(image):
-    feature = intensity_map(image)
-    context = local_blur_context(feature)
-    score = score_threshold_top_percent(feature, context, 95)
     return normalize_to_uint8(score)
 
 def isolation_intensity_local_multi(image):
@@ -397,34 +795,10 @@ def isolation_color_global_abs(image):
     score = score_absolute_difference(feature, context)
     return normalize_to_uint8(score)
 
-def isolation_color_global_zscore(image):
-    feature = color_lab_deviation(image)
-    context = global_mean_context(feature)
-    score = score_zscore(feature, context)
-    return normalize_to_uint8(score)
-
-def isolation_color_global_top(image):
-    feature = color_lab_deviation(image)
-    context = global_mean_context(feature)
-    score = score_threshold_top_percent(feature, context,95)
-    return normalize_to_uint8(score)
-
 def isolation_color_local_abs(image):
     feature = color_lab_deviation(image)
     context = local_blur_context(feature)
     score = score_absolute_difference(feature, context)
-    return normalize_to_uint8(score)
-
-def isolation_color_local_zscore(image):
-    feature = color_lab_deviation(image)
-    context = local_blur_context(feature)
-    score = score_zscore(feature, context)
-    return normalize_to_uint8(score)
-
-def isolation_color_local_top(image):
-    feature = color_lab_deviation(image)
-    context = local_blur_context(feature)
-    score = score_threshold_top_percent(feature, context, 95)
     return normalize_to_uint8(score)
 
 def isolation_color_local_multi(image):
