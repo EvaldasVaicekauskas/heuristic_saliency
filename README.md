@@ -82,7 +82,7 @@ Pagrindinis kodo katalogas, kuriame saugomos visos sistemos dedamosios. Kiekvien
 
 ---
 
-## 🧪 Kodo logika ir vykdymo eiga
+## Kodo logika ir vykdymo eiga
 
 1. **Euristikų saliency žemėlapių generavimas**
    -> kiekvienas paveikslas apdorojamas visomis euristikomis.
@@ -101,7 +101,7 @@ Pagrindinis kodo katalogas, kuriame saugomos visos sistemos dedamosios. Kiekvien
 
 ---
 
-## 📘 Pastabos skaitytojui
+## Pastabos skaitytojui
 
 Šis projektas orientuotas į modelio **skaidrumą ir aiškumą**, todėl kiekviena taisyklė realizuota atskirai, o visa sistema sudaryta iš **interpretuojamų komponentų**, kuriuos galima keisti, pridėti ar optimizuoti.
 
