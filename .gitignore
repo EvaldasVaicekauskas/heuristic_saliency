@@ -13,6 +13,7 @@ ENV/
 
 # Jupyter notebook checkpoints
 .ipynb_checkpoints/
+*.ipnyb
 
 # Dataset & output directories
 data/
