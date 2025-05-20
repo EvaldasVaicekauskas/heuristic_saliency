@@ -1,0 +1,2602 @@
+[
+  {
+    "fitness": -0.8513,
+    "avg_sim": 0.365200012922287,
+    "avg_cc": 0.1591,
+    "avg_kl": 1.3756999969482422,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.8946,
+      "contrast_edge_luminance_sobel": 0.1861,
+      "contrast_edge_color_sobel": 0.8865,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.8384,
+      "contrast_texture_gabor": 0.4759,
+      "contrast_texture_lbp": 0.2605,
+      "contrast_texture_entropy": 0.5869,
+      "symmetry_watershed": 1.0,
+      "symmetry_felzenszwalb": 0.2149,
+      "symmetry_seeded_region": 0.5845,
+      "symmetry_superpixel_preproc": 0.097,
+      "symmetry_superpixel": 0.0,
+      "symmetry_watershed_h": 0.8447,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.2427,
+      "symmetry_superpixel_preproc_h": 0.0168,
+      "symmetry_superpixel_h": 0.6166,
+      "isolation_color_global_abs": 1.0,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.5381,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.8447,
+      "isolation_tex_entropy_global_abs": 0.1428,
+      "isolation_tex_entropy_local_abs": 0.5115,
+      "isolation_tex_entropy_local_multi": 0.0,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.491,
+      "isolation_tex_lbp_local_multi": 0.1983,
+      "isolation_tex_gab_global_abs": 1.0,
+      "isolation_tex_gab_local_abs": 0.3328,
+      "isolation_tex_gab_local_multi": 0.9696,
+      "grouping_color_histogram_bins": 0.1131,
+      "grouping_line_hough": 0.6832
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.7913,
+        0.4098,
+        0.9037
+      ],
+      "symmetry": [
+        0.0,
+        0.6066,
+        0.0
+      ],
+      "isolation": [
+        0.8638,
+        0.4035,
+        0.1887
+      ],
+      "grouping": [
+        0.9833,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  {
+    "fitness": -0.8521,
+    "avg_sim": 0.36480000615119934,
+    "avg_cc": 0.1577,
+    "avg_kl": 1.3746000528335571,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.9938,
+      "contrast_edge_luminance_sobel": 0.0,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.4921,
+      "contrast_texture_gabor": 0.4057,
+      "contrast_texture_lbp": 0.2605,
+      "contrast_texture_entropy": 0.4647,
+      "symmetry_watershed": 0.8651,
+      "symmetry_felzenszwalb": 0.0,
+      "symmetry_seeded_region": 0.408,
+      "symmetry_superpixel_preproc": 0.0,
+      "symmetry_superpixel": 0.0,
+      "symmetry_watershed_h": 0.8447,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0658,
+      "symmetry_superpixel_preproc_h": 0.1379,
+      "symmetry_superpixel_h": 0.4592,
+      "isolation_color_global_abs": 1.0,
+      "isolation_color_local_abs": 0.2582,
+      "isolation_color_local_multi": 0.3351,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0105,
+      "isolation_intensity_local_multi": 0.1964,
+      "isolation_tex_entropy_global_abs": 0.1428,
+      "isolation_tex_entropy_local_abs": 0.1063,
+      "isolation_tex_entropy_local_multi": 0.1629,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.6677,
+      "isolation_tex_lbp_local_multi": 0.1983,
+      "isolation_tex_gab_global_abs": 0.9915,
+      "isolation_tex_gab_local_abs": 0.7117,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.2763,
+      "grouping_line_hough": 0.8127
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.7913,
+        0.4098,
+        0.4455
+      ],
+      "symmetry": [
+        0.1442,
+        0.6066,
+        0.1502
+      ],
+      "isolation": [
+        1.0,
+        0.182,
+        0.4203
+      ],
+      "grouping": [
+        0.5332,
+        0.2047,
+        0.0548
+      ]
+    }
+  },
+  {
+    "fitness": -0.8523,
+    "avg_sim": 0.36500000953674316,
+    "avg_cc": 0.1587,
+    "avg_kl": 1.3760000467300415,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.1074,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.6271,
+      "contrast_texture_gabor": 0.1172,
+      "contrast_texture_lbp": 0.2605,
+      "contrast_texture_entropy": 0.4647,
+      "symmetry_watershed": 1.0,
+      "symmetry_felzenszwalb": 0.039,
+      "symmetry_seeded_region": 0.4167,
+      "symmetry_superpixel_preproc": 0.0,
+      "symmetry_superpixel": 0.0052,
+      "symmetry_watershed_h": 1.0,
+      "symmetry_felzenszwalb_h": 0.0925,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.0168,
+      "symmetry_superpixel_h": 0.3073,
+      "isolation_color_global_abs": 0.6695,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.4189,
+      "isolation_intensity_global_abs": 0.1517,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.4371,
+      "isolation_tex_entropy_global_abs": 0.0,
+      "isolation_tex_entropy_local_abs": 0.3934,
+      "isolation_tex_entropy_local_multi": 0.1629,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.6266,
+      "isolation_tex_lbp_local_multi": 0.1983,
+      "isolation_tex_gab_global_abs": 0.8769,
+      "isolation_tex_gab_local_abs": 0.4516,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.6183,
+      "grouping_line_hough": 0.6317
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.5264,
+        1.0
+      ],
+      "symmetry": [
+        0.1902,
+        0.7639,
+        0.0
+      ],
+      "isolation": [
+        0.6717,
+        0.4035,
+        0.2997
+      ],
+      "grouping": [
+        0.581,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  {
+    "fitness": -0.8525,
+    "avg_sim": 0.365200012922287,
+    "avg_cc": 0.1586,
+    "avg_kl": 1.3763999938964844,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.1978,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 1.0,
+      "contrast_texture_gabor": 0.5593,
+      "contrast_texture_lbp": 0.2605,
+      "contrast_texture_entropy": 0.2906,
+      "symmetry_watershed": 0.9772,
+      "symmetry_felzenszwalb": 0.1577,
+      "symmetry_seeded_region": 0.1174,
+      "symmetry_superpixel_preproc": 0.0388,
+      "symmetry_superpixel": 0.1583,
+      "symmetry_watershed_h": 0.2752,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0918,
+      "symmetry_superpixel_preproc_h": 0.0168,
+      "symmetry_superpixel_h": 0.3073,
+      "isolation_color_global_abs": 1.0,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.4225,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.2854,
+      "isolation_intensity_local_multi": 0.1995,
+      "isolation_tex_entropy_global_abs": 0.0,
+      "isolation_tex_entropy_local_abs": 0.0,
+      "isolation_tex_entropy_local_multi": 0.1045,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.6266,
+      "isolation_tex_lbp_local_multi": 0.1983,
+      "isolation_tex_gab_global_abs": 0.8188,
+      "isolation_tex_gab_local_abs": 0.4661,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.3325,
+      "grouping_line_hough": 0.654
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.5938,
+        0.9037
+      ],
+      "symmetry": [
+        0.1902,
+        0.6377,
+        0.2219
+      ],
+      "isolation": [
+        0.6889,
+        0.6479,
+        0.1887
+      ],
+      "grouping": [
+        0.722,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  {
+    "fitness": -0.8529,
+    "avg_sim": 0.36550000309944153,
+    "avg_cc": 0.1596,
+    "avg_kl": 1.378000020980835,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.1978,
+      "contrast_edge_color_sobel": 0.962,
+      "contrast_edge_color_gradient": 0.8632,
+      "contrast_region_color_slic": 1.0,
+      "contrast_texture_gabor": 0.7823,
+      "contrast_texture_lbp": 0.1827,
+      "contrast_texture_entropy": 0.3414,
+      "symmetry_watershed": 0.7889,
+      "symmetry_felzenszwalb": 0.0,
+      "symmetry_seeded_region": 0.1174,
+      "symmetry_superpixel_preproc": 0.0,
+      "symmetry_superpixel": 0.1583,
+      "symmetry_watershed_h": 0.1182,
+      "symmetry_felzenszwalb_h": 0.0464,
+      "symmetry_seeded_region_h": 0.2311,
+      "symmetry_superpixel_preproc_h": 0.0,
+      "symmetry_superpixel_h": 0.3188,
+      "isolation_color_global_abs": 1.0,
+      "isolation_color_local_abs": 0.0,
+      "isolation_color_local_multi": 0.4225,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.2854,
+      "isolation_intensity_local_multi": 0.9138,
+      "isolation_tex_entropy_global_abs": 0.1428,
+      "isolation_tex_entropy_local_abs": 0.0,
+      "isolation_tex_entropy_local_multi": 0.1484,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.6266,
+      "isolation_tex_lbp_local_multi": 0.1983,
+      "isolation_tex_gab_global_abs": 0.8188,
+      "isolation_tex_gab_local_abs": 0.4085,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.3325,
+      "grouping_line_hough": 0.654
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.5938,
+        0.9037
+      ],
+      "symmetry": [
+        0.1902,
+        0.6377,
+        0.2219
+      ],
+      "isolation": [
+        0.6889,
+        0.2303,
+        0.1887
+      ],
+      "grouping": [
+        0.473,
+        0.2047,
+        0.6202
+      ]
+    }
+  },
+  {
+    "fitness": -0.853,
+    "avg_sim": 0.36550000309944153,
+    "avg_cc": 0.1564,
+    "avg_kl": 1.3747999668121338,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.2428,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.4695,
+      "contrast_texture_gabor": 0.4096,
+      "contrast_texture_lbp": 0.2004,
+      "contrast_texture_entropy": 0.4194,
+      "symmetry_watershed": 0.6433,
+      "symmetry_felzenszwalb": 0.0335,
+      "symmetry_seeded_region": 0.3463,
+      "symmetry_superpixel_preproc": 0.0,
+      "symmetry_superpixel": 0.0166,
+      "symmetry_watershed_h": 0.5425,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.0,
+      "symmetry_superpixel_h": 0.4592,
+      "isolation_color_global_abs": 0.7187,
+      "isolation_color_local_abs": 0.0214,
+      "isolation_color_local_multi": 0.5381,
+      "isolation_intensity_global_abs": 0.166,
+      "isolation_intensity_local_abs": 0.0554,
+      "isolation_intensity_local_multi": 0.0982,
+      "isolation_tex_entropy_global_abs": 0.0,
+      "isolation_tex_entropy_local_abs": 0.6582,
+      "isolation_tex_entropy_local_multi": 0.2682,
+      "isolation_tex_lbp_global_abs": 0.0034,
+      "isolation_tex_lbp_local_abs": 0.4542,
+      "isolation_tex_lbp_local_multi": 0.1983,
+      "isolation_tex_gab_global_abs": 0.8346,
+      "isolation_tex_gab_local_abs": 1.0,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.0,
+      "grouping_line_hough": 0.7908
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.5488,
+        0.4823,
+        0.4455
+      ],
+      "symmetry": [
+        0.0,
+        0.6066,
+        0.2948
+      ],
+      "isolation": [
+        0.606,
+        0.6479,
+        0.0081
+      ],
+      "grouping": [
+        0.5799,
+        0.0,
+        0.2001
+      ]
+    }
+  },
+  {
+    "fitness": -0.8532,
+    "avg_sim": 0.36559998989105225,
+    "avg_cc": 0.1578,
+    "avg_kl": 1.3765000104904175,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.8946,
+      "contrast_edge_luminance_sobel": 0.1983,
+      "contrast_edge_color_sobel": 0.8137,
+      "contrast_edge_color_gradient": 0.8616,
+      "contrast_region_color_slic": 0.834,
+      "contrast_texture_gabor": 0.7342,
+      "contrast_texture_lbp": 0.2004,
+      "contrast_texture_entropy": 0.3063,
+      "symmetry_watershed": 1.0,
+      "symmetry_felzenszwalb": 0.2358,
+      "symmetry_seeded_region": 0.4099,
+      "symmetry_superpixel_preproc": 0.0426,
+      "symmetry_superpixel": 0.0556,
+      "symmetry_watershed_h": 1.0,
+      "symmetry_felzenszwalb_h": 0.1021,
+      "symmetry_seeded_region_h": 0.0188,
+      "symmetry_superpixel_preproc_h": 0.0444,
+      "symmetry_superpixel_h": 0.1783,
+      "isolation_color_global_abs": 0.7187,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.8044,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.2985,
+      "isolation_tex_entropy_global_abs": 0.2328,
+      "isolation_tex_entropy_local_abs": 0.1063,
+      "isolation_tex_entropy_local_multi": 0.0,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.8966,
+      "isolation_tex_lbp_local_multi": 0.0,
+      "isolation_tex_gab_global_abs": 1.0,
+      "isolation_tex_gab_local_abs": 0.0,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.3705,
+      "grouping_line_hough": 0.6362
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.8861,
+        0.7268,
+        0.9037
+      ],
+      "symmetry": [
+        0.0492,
+        0.3954,
+        0.007
+      ],
+      "isolation": [
+        0.7959,
+        0.4625,
+        0.5655
+      ],
+      "grouping": [
+        0.8173,
+        0.0,
+        0.5066
+      ]
+    }
+  },
+  {
+    "fitness": -0.8532,
+    "avg_sim": 0.36489999294281006,
+    "avg_cc": 0.1577,
+    "avg_kl": 1.3758000135421753,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.8946,
+      "contrast_edge_luminance_sobel": 0.1074,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.8384,
+      "contrast_texture_gabor": 0.1692,
+      "contrast_texture_lbp": 0.2004,
+      "contrast_texture_entropy": 0.5869,
+      "symmetry_watershed": 0.9187,
+      "symmetry_felzenszwalb": 0.0082,
+      "symmetry_seeded_region": 0.5845,
+      "symmetry_superpixel_preproc": 0.2316,
+      "symmetry_superpixel": 0.1583,
+      "symmetry_watershed_h": 0.8447,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.0168,
+      "symmetry_superpixel_h": 0.3726,
+      "isolation_color_global_abs": 1.0,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.5381,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.8447,
+      "isolation_tex_entropy_global_abs": 0.1428,
+      "isolation_tex_entropy_local_abs": 0.5115,
+      "isolation_tex_entropy_local_multi": 0.1045,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.491,
+      "isolation_tex_lbp_local_multi": 0.4578,
+      "isolation_tex_gab_global_abs": 0.8346,
+      "isolation_tex_gab_local_abs": 0.3328,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.2763,
+      "grouping_line_hough": 0.6362
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.7913,
+        0.5264,
+        0.9037
+      ],
+      "symmetry": [
+        0.0,
+        0.6066,
+        0.0
+      ],
+      "isolation": [
+        0.6889,
+        0.6479,
+        0.1887
+      ],
+      "grouping": [
+        0.722,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  {
+    "fitness": -0.8534,
+    "avg_sim": 0.36570000648498535,
+    "avg_cc": 0.1582,
+    "avg_kl": 1.3773000240325928,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.0385,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.537,
+      "contrast_texture_gabor": 0.4817,
+      "contrast_texture_lbp": 0.139,
+      "contrast_texture_entropy": 0.2269,
+      "symmetry_watershed": 0.7012,
+      "symmetry_felzenszwalb": 0.0216,
+      "symmetry_seeded_region": 0.4304,
+      "symmetry_superpixel_preproc": 0.1264,
+      "symmetry_superpixel": 0.181,
+      "symmetry_watershed_h": 0.8447,
+      "symmetry_felzenszwalb_h": 0.0503,
+      "symmetry_seeded_region_h": 0.0658,
+      "symmetry_superpixel_preproc_h": 0.0856,
+      "symmetry_superpixel_h": 0.3766,
+      "isolation_color_global_abs": 0.7479,
+      "isolation_color_local_abs": 0.0214,
+      "isolation_color_local_multi": 0.6805,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.2072,
+      "isolation_intensity_local_multi": 0.4702,
+      "isolation_tex_entropy_global_abs": 0.3974,
+      "isolation_tex_entropy_local_abs": 0.1063,
+      "isolation_tex_entropy_local_multi": 0.0,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.7351,
+      "isolation_tex_lbp_local_multi": 0.0846,
+      "isolation_tex_gab_global_abs": 1.0,
+      "isolation_tex_gab_local_abs": 1.0,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.415,
+      "grouping_line_hough": 0.6926
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.7913,
+        0.6564,
+        0.8481
+      ],
+      "symmetry": [
+        0.0,
+        0.241,
+        0.2709
+      ],
+      "isolation": [
+        1.0,
+        0.182,
+        0.1203
+      ],
+      "grouping": [
+        0.8029,
+        0.2006,
+        0.528
+      ]
+    }
+  },
+  {
+    "fitness": -0.8539,
+    "avg_sim": 0.36480000615119934,
+    "avg_cc": 0.1561,
+    "avg_kl": 1.3747999668121338,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.9816,
+      "contrast_edge_luminance_sobel": 0.1074,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.8384,
+      "contrast_texture_gabor": 0.1692,
+      "contrast_texture_lbp": 0.2605,
+      "contrast_texture_entropy": 0.3008,
+      "symmetry_watershed": 0.9187,
+      "symmetry_felzenszwalb": 0.039,
+      "symmetry_seeded_region": 0.5845,
+      "symmetry_superpixel_preproc": 0.0388,
+      "symmetry_superpixel": 0.1583,
+      "symmetry_watershed_h": 0.6117,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0845,
+      "symmetry_superpixel_preproc_h": 0.0168,
+      "symmetry_superpixel_h": 0.3073,
+      "isolation_color_global_abs": 1.0,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.4189,
+      "isolation_intensity_global_abs": 0.2167,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.4371,
+      "isolation_tex_entropy_global_abs": 0.0,
+      "isolation_tex_entropy_local_abs": 0.5115,
+      "isolation_tex_entropy_local_multi": 0.0033,
+      "isolation_tex_lbp_global_abs": 0.0219,
+      "isolation_tex_lbp_local_abs": 0.6266,
+      "isolation_tex_lbp_local_multi": 0.4578,
+      "isolation_tex_gab_global_abs": 0.7435,
+      "isolation_tex_gab_local_abs": 0.4516,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.3325,
+      "grouping_line_hough": 0.6362
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.5264,
+        0.683
+      ],
+      "symmetry": [
+        0.1902,
+        0.7639,
+        0.0
+      ],
+      "isolation": [
+        0.6717,
+        0.7951,
+        0.2997
+      ],
+      "grouping": [
+        0.9493,
+        0.1244,
+        0.0
+      ]
+    }
+  },
+  {
+    "fitness": -0.8539,
+    "avg_sim": 0.36500000953674316,
+    "avg_cc": 0.1595,
+    "avg_kl": 1.378499984741211,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.1387,
+      "contrast_edge_color_sobel": 0.8137,
+      "contrast_edge_color_gradient": 0.8616,
+      "contrast_region_color_slic": 0.834,
+      "contrast_texture_gabor": 0.2821,
+      "contrast_texture_lbp": 0.2004,
+      "contrast_texture_entropy": 0.6264,
+      "symmetry_watershed": 1.0,
+      "symmetry_felzenszwalb": 0.0,
+      "symmetry_seeded_region": 0.3397,
+      "symmetry_superpixel_preproc": 0.2334,
+      "symmetry_superpixel": 0.0556,
+      "symmetry_watershed_h": 1.0,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0188,
+      "symmetry_superpixel_preproc_h": 0.0444,
+      "symmetry_superpixel_h": 0.8376,
+      "isolation_color_global_abs": 0.7187,
+      "isolation_color_local_abs": 0.0214,
+      "isolation_color_local_multi": 0.6576,
+      "isolation_intensity_global_abs": 0.2553,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.2985,
+      "isolation_tex_entropy_global_abs": 0.0796,
+      "isolation_tex_entropy_local_abs": 0.0966,
+      "isolation_tex_entropy_local_multi": 0.218,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.8966,
+      "isolation_tex_lbp_local_multi": 0.0,
+      "isolation_tex_gab_global_abs": 0.4707,
+      "isolation_tex_gab_local_abs": 0.6703,
+      "isolation_tex_gab_local_multi": 0.9696,
+      "grouping_color_histogram_bins": 0.3874,
+      "grouping_line_hough": 0.6362
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.4098,
+        0.5523
+      ],
+      "symmetry": [
+        0.0492,
+        0.4804,
+        0.0
+      ],
+      "isolation": [
+        1.0,
+        0.4625,
+        0.0827
+      ],
+      "grouping": [
+        0.581,
+        0.0,
+        0.5066
+      ]
+    }
+  },
+  {
+    "fitness": -0.854,
+    "avg_sim": 0.36500000953674316,
+    "avg_cc": 0.1569,
+    "avg_kl": 1.3759000301361084,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.7544,
+      "contrast_edge_luminance_sobel": 0.2428,
+      "contrast_edge_color_sobel": 0.7725,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.3654,
+      "contrast_texture_gabor": 0.4358,
+      "contrast_texture_lbp": 0.2004,
+      "contrast_texture_entropy": 0.1941,
+      "symmetry_watershed": 0.8245,
+      "symmetry_felzenszwalb": 0.0335,
+      "symmetry_seeded_region": 0.1979,
+      "symmetry_superpixel_preproc": 0.2048,
+      "symmetry_superpixel": 0.0442,
+      "symmetry_watershed_h": 0.5425,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.0,
+      "symmetry_superpixel_h": 0.8228,
+      "isolation_color_global_abs": 0.7809,
+      "isolation_color_local_abs": 0.0,
+      "isolation_color_local_multi": 1.0,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0554,
+      "isolation_intensity_local_multi": 0.268,
+      "isolation_tex_entropy_global_abs": 0.3974,
+      "isolation_tex_entropy_local_abs": 0.6582,
+      "isolation_tex_entropy_local_multi": 0.2682,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.6019,
+      "isolation_tex_lbp_local_multi": 0.1514,
+      "isolation_tex_gab_global_abs": 0.9216,
+      "isolation_tex_gab_local_abs": 1.0,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.0,
+      "grouping_line_hough": 0.8786
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.5625,
+        0.9593
+      ],
+      "symmetry": [
+        0.0226,
+        0.4196,
+        0.2948
+      ],
+      "isolation": [
+        0.606,
+        0.4625,
+        0.0895
+      ],
+      "grouping": [
+        0.7974,
+        0.0,
+        0.3034
+      ]
+    }
+  },
+  {
+    "fitness": -0.8542,
+    "avg_sim": 0.36480000615119934,
+    "avg_cc": 0.1575,
+    "avg_kl": 1.3765000104904175,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.2428,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.9891,
+      "contrast_texture_gabor": 0.4096,
+      "contrast_texture_lbp": 0.2004,
+      "contrast_texture_entropy": 0.4647,
+      "symmetry_watershed": 0.6433,
+      "symmetry_felzenszwalb": 0.0335,
+      "symmetry_seeded_region": 0.3463,
+      "symmetry_superpixel_preproc": 0.0,
+      "symmetry_superpixel": 0.0052,
+      "symmetry_watershed_h": 0.5425,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.0,
+      "symmetry_superpixel_h": 0.8376,
+      "isolation_color_global_abs": 0.7426,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.5381,
+      "isolation_intensity_global_abs": 0.166,
+      "isolation_intensity_local_abs": 0.0554,
+      "isolation_intensity_local_multi": 0.0551,
+      "isolation_tex_entropy_global_abs": 0.0,
+      "isolation_tex_entropy_local_abs": 0.6582,
+      "isolation_tex_entropy_local_multi": 0.2682,
+      "isolation_tex_lbp_global_abs": 0.0034,
+      "isolation_tex_lbp_local_abs": 0.898,
+      "isolation_tex_lbp_local_multi": 0.1983,
+      "isolation_tex_gab_global_abs": 0.8769,
+      "isolation_tex_gab_local_abs": 1.0,
+      "isolation_tex_gab_local_multi": 0.9696,
+      "grouping_color_histogram_bins": 0.0,
+      "grouping_line_hough": 0.6317
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.5488,
+        0.86,
+        0.4455
+      ],
+      "symmetry": [
+        0.0,
+        0.6066,
+        0.2948
+      ],
+      "isolation": [
+        0.606,
+        0.2245,
+        0.1655
+      ],
+      "grouping": [
+        1.0,
+        0.0,
+        0.2904
+      ]
+    }
+  },
+  {
+    "fitness": -0.8542,
+    "avg_sim": 0.3650999963283539,
+    "avg_cc": 0.1566,
+    "avg_kl": 1.3760000467300415,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.7544,
+      "contrast_edge_luminance_sobel": 0.0,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 1.0,
+      "contrast_texture_gabor": 0.0,
+      "contrast_texture_lbp": 0.2004,
+      "contrast_texture_entropy": 0.5869,
+      "symmetry_watershed": 0.9187,
+      "symmetry_felzenszwalb": 0.0082,
+      "symmetry_seeded_region": 0.5845,
+      "symmetry_superpixel_preproc": 0.409,
+      "symmetry_superpixel": 0.0,
+      "symmetry_watershed_h": 0.8447,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.0168,
+      "symmetry_superpixel_h": 0.3726,
+      "isolation_color_global_abs": 0.831,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.5258,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.8447,
+      "isolation_tex_entropy_global_abs": 0.1428,
+      "isolation_tex_entropy_local_abs": 0.5115,
+      "isolation_tex_entropy_local_multi": 0.2682,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.6019,
+      "isolation_tex_lbp_local_multi": 0.0,
+      "isolation_tex_gab_global_abs": 1.0,
+      "isolation_tex_gab_local_abs": 0.7746,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.2763,
+      "grouping_line_hough": 0.7421
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.4098,
+        0.7885
+      ],
+      "symmetry": [
+        0.0,
+        0.6066,
+        0.1023
+      ],
+      "isolation": [
+        0.7727,
+        0.6421,
+        0.4242
+      ],
+      "grouping": [
+        0.8808,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  {
+    "fitness": -0.8544,
+    "avg_sim": 0.3644999861717224,
+    "avg_cc": 0.1584,
+    "avg_kl": 1.3773000240325928,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.7508,
+      "contrast_edge_luminance_sobel": 0.0,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.7442,
+      "contrast_texture_gabor": 0.4096,
+      "contrast_texture_lbp": 0.23,
+      "contrast_texture_entropy": 0.5207,
+      "symmetry_watershed": 0.6433,
+      "symmetry_felzenszwalb": 0.2358,
+      "symmetry_seeded_region": 0.3397,
+      "symmetry_superpixel_preproc": 0.0426,
+      "symmetry_superpixel": 0.0417,
+      "symmetry_watershed_h": 0.8447,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.0,
+      "symmetry_superpixel_h": 0.2319,
+      "isolation_color_global_abs": 1.0,
+      "isolation_color_local_abs": 0.1556,
+      "isolation_color_local_multi": 0.5381,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.7028,
+      "isolation_tex_entropy_global_abs": 0.2608,
+      "isolation_tex_entropy_local_abs": 0.1951,
+      "isolation_tex_entropy_local_multi": 0.0673,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.6677,
+      "isolation_tex_lbp_local_multi": 0.3807,
+      "isolation_tex_gab_global_abs": 0.8346,
+      "isolation_tex_gab_local_abs": 0.8261,
+      "isolation_tex_gab_local_multi": 0.926,
+      "grouping_color_histogram_bins": 0.2763,
+      "grouping_line_hough": 0.6587
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.7268,
+        0.4455
+      ],
+      "symmetry": [
+        0.2092,
+        0.6066,
+        0.1258
+      ],
+      "isolation": [
+        0.7959,
+        0.0514,
+        0.4179
+      ],
+      "grouping": [
+        0.722,
+        0.2047,
+        0.0
+      ]
+    }
+  },
+  {
+    "fitness": -0.8544,
+    "avg_sim": 0.36500000953674316,
+    "avg_cc": 0.1562,
+    "avg_kl": 1.375599980354309,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.8345,
+      "contrast_edge_luminance_sobel": 0.1387,
+      "contrast_edge_color_sobel": 0.962,
+      "contrast_edge_color_gradient": 0.7034,
+      "contrast_region_color_slic": 0.4852,
+      "contrast_texture_gabor": 0.5509,
+      "contrast_texture_lbp": 0.1827,
+      "contrast_texture_entropy": 0.2269,
+      "symmetry_watershed": 0.8284,
+      "symmetry_felzenszwalb": 0.1133,
+      "symmetry_seeded_region": 0.725,
+      "symmetry_superpixel_preproc": 0.087,
+      "symmetry_superpixel": 0.3737,
+      "symmetry_watershed_h": 0.9819,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.1606,
+      "symmetry_superpixel_h": 0.4903,
+      "isolation_color_global_abs": 0.968,
+      "isolation_color_local_abs": 0.0315,
+      "isolation_color_local_multi": 1.0,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.9138,
+      "isolation_tex_entropy_global_abs": 0.038,
+      "isolation_tex_entropy_local_abs": 0.039,
+      "isolation_tex_entropy_local_multi": 0.218,
+      "isolation_tex_lbp_global_abs": 0.0229,
+      "isolation_tex_lbp_local_abs": 0.0,
+      "isolation_tex_lbp_local_multi": 0.5799,
+      "isolation_tex_gab_global_abs": 0.7508,
+      "isolation_tex_gab_local_abs": 0.566,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.2445,
+      "grouping_line_hough": 0.8935
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.985,
+        0.8326,
+        0.4868
+      ],
+      "symmetry": [
+        0.0,
+        0.4804,
+        0.4069
+      ],
+      "isolation": [
+        1.0,
+        0.6743,
+        0.0
+      ],
+      "grouping": [
+        0.7207,
+        0.0,
+        0.7542
+      ]
+    }
+  },
+  {
+    "fitness": -0.8544,
+    "avg_sim": 0.3650999963283539,
+    "avg_cc": 0.1583,
+    "avg_kl": 1.3777999877929688,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.8139,
+      "contrast_edge_luminance_sobel": 0.3404,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.7609,
+      "contrast_texture_gabor": 0.1692,
+      "contrast_texture_lbp": 0.2605,
+      "contrast_texture_entropy": 0.5019,
+      "symmetry_watershed": 0.8113,
+      "symmetry_felzenszwalb": 0.1577,
+      "symmetry_seeded_region": 0.3397,
+      "symmetry_superpixel_preproc": 0.0,
+      "symmetry_superpixel": 0.0,
+      "symmetry_watershed_h": 0.4404,
+      "symmetry_felzenszwalb_h": 0.1469,
+      "symmetry_seeded_region_h": 0.0915,
+      "symmetry_superpixel_preproc_h": 0.0168,
+      "symmetry_superpixel_h": 0.6928,
+      "isolation_color_global_abs": 0.9926,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.5381,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.1995,
+      "isolation_tex_entropy_global_abs": 0.0,
+      "isolation_tex_entropy_local_abs": 0.1381,
+      "isolation_tex_entropy_local_multi": 0.1045,
+      "isolation_tex_lbp_global_abs": 0.0167,
+      "isolation_tex_lbp_local_abs": 0.491,
+      "isolation_tex_lbp_local_multi": 0.4477,
+      "isolation_tex_gab_global_abs": 1.0,
+      "isolation_tex_gab_local_abs": 1.0,
+      "isolation_tex_gab_local_multi": 0.9696,
+      "grouping_color_histogram_bins": 0.0,
+      "grouping_line_hough": 1.0
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.9767,
+        0.5264,
+        0.9493
+      ],
+      "symmetry": [
+        0.0,
+        0.6066,
+        0.0
+      ],
+      "isolation": [
+        0.8554,
+        0.546,
+        0.3661
+      ],
+      "grouping": [
+        0.4697,
+        0.0,
+        0.7653
+      ]
+    }
+  },
+  {
+    "fitness": -0.8545,
+    "avg_sim": 0.36469998955726624,
+    "avg_cc": 0.1573,
+    "avg_kl": 1.3763999938964844,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.2163,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.7841,
+      "contrast_texture_gabor": 0.1958,
+      "contrast_texture_lbp": 0.2605,
+      "contrast_texture_entropy": 0.2906,
+      "symmetry_watershed": 0.9838,
+      "symmetry_felzenszwalb": 0.1044,
+      "symmetry_seeded_region": 0.1174,
+      "symmetry_superpixel_preproc": 0.0388,
+      "symmetry_superpixel": 0.1583,
+      "symmetry_watershed_h": 0.3063,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.1408,
+      "symmetry_superpixel_preproc_h": 0.1379,
+      "symmetry_superpixel_h": 0.2925,
+      "isolation_color_global_abs": 0.7187,
+      "isolation_color_local_abs": 0.2921,
+      "isolation_color_local_multi": 0.6067,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.1995,
+      "isolation_tex_entropy_global_abs": 0.2323,
+      "isolation_tex_entropy_local_abs": 0.1063,
+      "isolation_tex_entropy_local_multi": 0.0,
+      "isolation_tex_lbp_global_abs": 0.0763,
+      "isolation_tex_lbp_local_abs": 0.6266,
+      "isolation_tex_lbp_local_multi": 0.2124,
+      "isolation_tex_gab_global_abs": 1.0,
+      "isolation_tex_gab_local_abs": 0.4661,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.2763,
+      "grouping_line_hough": 0.5406
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.4282,
+        0.9037
+      ],
+      "symmetry": [
+        0.0078,
+        0.6377,
+        0.3425
+      ],
+      "isolation": [
+        1.0,
+        0.0,
+        0.2477
+      ],
+      "grouping": [
+        0.6337,
+        0.6409,
+        0.3526
+      ]
+    }
+  },
+  {
+    "fitness": -0.8545,
+    "avg_sim": 0.3650999963283539,
+    "avg_cc": 0.1565,
+    "avg_kl": 1.376099944114685,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.7544,
+      "contrast_edge_luminance_sobel": 0.0,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 1.0,
+      "contrast_texture_gabor": 0.0,
+      "contrast_texture_lbp": 0.2004,
+      "contrast_texture_entropy": 0.5869,
+      "symmetry_watershed": 0.9187,
+      "symmetry_felzenszwalb": 0.0,
+      "symmetry_seeded_region": 0.5845,
+      "symmetry_superpixel_preproc": 0.409,
+      "symmetry_superpixel": 0.0,
+      "symmetry_watershed_h": 0.8447,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.0168,
+      "symmetry_superpixel_h": 0.3726,
+      "isolation_color_global_abs": 0.6117,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.5258,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.8447,
+      "isolation_tex_entropy_global_abs": 0.1428,
+      "isolation_tex_entropy_local_abs": 0.5115,
+      "isolation_tex_entropy_local_multi": 0.2682,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.7794,
+      "isolation_tex_lbp_local_multi": 0.0,
+      "isolation_tex_gab_global_abs": 1.0,
+      "isolation_tex_gab_local_abs": 0.7746,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.4212,
+      "grouping_line_hough": 0.7421
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.636,
+        0.7885
+      ],
+      "symmetry": [
+        0.0,
+        0.6066,
+        0.1023
+      ],
+      "isolation": [
+        0.9742,
+        0.6421,
+        0.4242
+      ],
+      "grouping": [
+        0.8808,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  {
+    "fitness": -0.8545,
+    "avg_sim": 0.3646000027656555,
+    "avg_cc": 0.1576,
+    "avg_kl": 1.3767000436782837,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.8353,
+      "contrast_edge_luminance_sobel": 0.1983,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 0.8867,
+      "contrast_region_color_slic": 0.7841,
+      "contrast_texture_gabor": 0.5243,
+      "contrast_texture_lbp": 0.23,
+      "contrast_texture_entropy": 0.4629,
+      "symmetry_watershed": 0.988,
+      "symmetry_felzenszwalb": 0.233,
+      "symmetry_seeded_region": 0.4099,
+      "symmetry_superpixel_preproc": 0.0426,
+      "symmetry_superpixel": 0.0068,
+      "symmetry_watershed_h": 0.7005,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.0186,
+      "symmetry_superpixel_h": 0.3766,
+      "isolation_color_global_abs": 0.6378,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.4899,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0528,
+      "isolation_intensity_local_multi": 0.2442,
+      "isolation_tex_entropy_global_abs": 0.1428,
+      "isolation_tex_entropy_local_abs": 0.3352,
+      "isolation_tex_entropy_local_multi": 0.0,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.7351,
+      "isolation_tex_lbp_local_multi": 0.3922,
+      "isolation_tex_gab_global_abs": 1.0,
+      "isolation_tex_gab_local_abs": 0.0,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.2959,
+      "grouping_line_hough": 0.6587
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.7913,
+        0.7704,
+        0.9037
+      ],
+      "symmetry": [
+        0.2481,
+        0.4276,
+        0.007
+      ],
+      "isolation": [
+        0.7959,
+        0.0514,
+        0.4179
+      ],
+      "grouping": [
+        0.821,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  {
+    "fitness": -0.8546,
+    "avg_sim": 0.3650999963283539,
+    "avg_cc": 0.1563,
+    "avg_kl": 1.3760000467300415,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.1861,
+      "contrast_edge_color_sobel": 0.8865,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.9318,
+      "contrast_texture_gabor": 0.5016,
+      "contrast_texture_lbp": 0.1153,
+      "contrast_texture_entropy": 0.3551,
+      "symmetry_watershed": 1.0,
+      "symmetry_felzenszwalb": 0.0151,
+      "symmetry_seeded_region": 0.4435,
+      "symmetry_superpixel_preproc": 0.0,
+      "symmetry_superpixel": 0.0052,
+      "symmetry_watershed_h": 1.0,
+      "symmetry_felzenszwalb_h": 0.0925,
+      "symmetry_seeded_region_h": 0.2427,
+      "symmetry_superpixel_preproc_h": 0.0444,
+      "symmetry_superpixel_h": 0.8376,
+      "isolation_color_global_abs": 1.0,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.9141,
+      "isolation_intensity_global_abs": 0.2237,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.3065,
+      "isolation_tex_entropy_global_abs": 0.1428,
+      "isolation_tex_entropy_local_abs": 0.7175,
+      "isolation_tex_entropy_local_multi": 0.1629,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.491,
+      "isolation_tex_lbp_local_multi": 0.046,
+      "isolation_tex_gab_global_abs": 1.0,
+      "isolation_tex_gab_local_abs": 0.3328,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.1131,
+      "grouping_line_hough": 0.6832
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.4098,
+        0.9037
+      ],
+      "symmetry": [
+        0.0,
+        0.722,
+        0.0
+      ],
+      "isolation": [
+        0.8638,
+        0.4387,
+        0.0648
+      ],
+      "grouping": [
+        0.581,
+        0.0,
+        0.5615
+      ]
+    }
+  },
+  {
+    "fitness": -0.8547,
+    "avg_sim": 0.3650999963283539,
+    "avg_cc": 0.1597,
+    "avg_kl": 1.3796000480651855,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.8946,
+      "contrast_edge_luminance_sobel": 0.1861,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.8384,
+      "contrast_texture_gabor": 0.7032,
+      "contrast_texture_lbp": 0.2605,
+      "contrast_texture_entropy": 0.5869,
+      "symmetry_watershed": 1.0,
+      "symmetry_felzenszwalb": 0.2818,
+      "symmetry_seeded_region": 0.5845,
+      "symmetry_superpixel_preproc": 0.2249,
+      "symmetry_superpixel": 0.2271,
+      "symmetry_watershed_h": 0.3063,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.2427,
+      "symmetry_superpixel_preproc_h": 0.0168,
+      "symmetry_superpixel_h": 0.6166,
+      "isolation_color_global_abs": 0.7824,
+      "isolation_color_local_abs": 0.0,
+      "isolation_color_local_multi": 0.5381,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0966,
+      "isolation_intensity_local_multi": 0.1995,
+      "isolation_tex_entropy_global_abs": 0.0929,
+      "isolation_tex_entropy_local_abs": 0.0,
+      "isolation_tex_entropy_local_multi": 0.0,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.3807,
+      "isolation_tex_lbp_local_multi": 0.0199,
+      "isolation_tex_gab_global_abs": 0.8346,
+      "isolation_tex_gab_local_abs": 0.2558,
+      "isolation_tex_gab_local_multi": 0.9696,
+      "grouping_color_histogram_bins": 0.2291,
+      "grouping_line_hough": 0.6832
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.7913,
+        0.86,
+        0.7917
+      ],
+      "symmetry": [
+        0.0,
+        0.6066,
+        0.0
+      ],
+      "isolation": [
+        0.8638,
+        0.4378,
+        0.4286
+      ],
+      "grouping": [
+        0.7043,
+        0.4456,
+        0.0916
+      ]
+    }
+  },
+  {
+    "fitness": -0.8549,
+    "avg_sim": 0.36469998955726624,
+    "avg_cc": 0.1569,
+    "avg_kl": 1.3765000104904175,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.8946,
+      "contrast_edge_luminance_sobel": 0.0,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 0.8831,
+      "contrast_region_color_slic": 0.9318,
+      "contrast_texture_gabor": 0.5243,
+      "contrast_texture_lbp": 0.23,
+      "contrast_texture_entropy": 0.3063,
+      "symmetry_watershed": 1.0,
+      "symmetry_felzenszwalb": 0.2571,
+      "symmetry_seeded_region": 0.6144,
+      "symmetry_superpixel_preproc": 0.0,
+      "symmetry_superpixel": 0.1583,
+      "symmetry_watershed_h": 0.9315,
+      "symmetry_felzenszwalb_h": 0.0925,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.0444,
+      "symmetry_superpixel_h": 0.1783,
+      "isolation_color_global_abs": 0.6695,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.5381,
+      "isolation_intensity_global_abs": 0.1517,
+      "isolation_intensity_local_abs": 0.1292,
+      "isolation_intensity_local_multi": 0.2412,
+      "isolation_tex_entropy_global_abs": 0.2328,
+      "isolation_tex_entropy_local_abs": 0.1063,
+      "isolation_tex_entropy_local_multi": 0.0,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.898,
+      "isolation_tex_lbp_local_multi": 0.1983,
+      "isolation_tex_gab_global_abs": 0.8769,
+      "isolation_tex_gab_local_abs": 0.0931,
+      "isolation_tex_gab_local_multi": 0.9696,
+      "grouping_color_histogram_bins": 0.1936,
+      "grouping_line_hough": 0.7903
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.7268,
+        0.9037
+      ],
+      "symmetry": [
+        0.0,
+        0.5434,
+        0.007
+      ],
+      "isolation": [
+        1.0,
+        0.4035,
+        0.281
+      ],
+      "grouping": [
+        0.5991,
+        0.0,
+        0.5615
+      ]
+    }
+  },
+  {
+    "fitness": -0.8549,
+    "avg_sim": 0.3644999861717224,
+    "avg_cc": 0.156,
+    "avg_kl": 1.3753999471664429,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.0,
+      "contrast_edge_color_sobel": 0.9141,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.7065,
+      "contrast_texture_gabor": 0.5016,
+      "contrast_texture_lbp": 0.2004,
+      "contrast_texture_entropy": 0.5869,
+      "symmetry_watershed": 0.6433,
+      "symmetry_felzenszwalb": 0.1044,
+      "symmetry_seeded_region": 0.4167,
+      "symmetry_superpixel_preproc": 0.2249,
+      "symmetry_superpixel": 0.0,
+      "symmetry_watershed_h": 0.8447,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.0168,
+      "symmetry_superpixel_h": 0.4163,
+      "isolation_color_global_abs": 0.7824,
+      "isolation_color_local_abs": 0.0214,
+      "isolation_color_local_multi": 0.9141,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0966,
+      "isolation_intensity_local_multi": 0.8447,
+      "isolation_tex_entropy_global_abs": 0.0741,
+      "isolation_tex_entropy_local_abs": 0.5115,
+      "isolation_tex_entropy_local_multi": 0.0,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.8146,
+      "isolation_tex_lbp_local_multi": 0.1335,
+      "isolation_tex_gab_global_abs": 0.9556,
+      "isolation_tex_gab_local_abs": 0.4065,
+      "isolation_tex_gab_local_multi": 0.8322,
+      "grouping_color_histogram_bins": 0.2055,
+      "grouping_line_hough": 0.7421
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.4098,
+        0.7917
+      ],
+      "symmetry": [
+        0.2433,
+        0.6066,
+        0.21
+      ],
+      "isolation": [
+        1.0,
+        0.351,
+        0.4242
+      ],
+      "grouping": [
+        0.8808,
+        0.2485,
+        0.3011
+      ]
+    }
+  },
+  {
+    "fitness": -0.8549,
+    "avg_sim": 0.36489999294281006,
+    "avg_cc": 0.1569,
+    "avg_kl": 1.3767000436782837,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.8946,
+      "contrast_edge_luminance_sobel": 0.1983,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 0.8831,
+      "contrast_region_color_slic": 0.7841,
+      "contrast_texture_gabor": 0.5243,
+      "contrast_texture_lbp": 0.23,
+      "contrast_texture_entropy": 0.3063,
+      "symmetry_watershed": 0.9838,
+      "symmetry_felzenszwalb": 0.2358,
+      "symmetry_seeded_region": 0.4099,
+      "symmetry_superpixel_preproc": 0.0426,
+      "symmetry_superpixel": 0.1583,
+      "symmetry_watershed_h": 0.5528,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.0412,
+      "symmetry_superpixel_h": 0.1783,
+      "isolation_color_global_abs": 0.6361,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.4899,
+      "isolation_intensity_global_abs": 0.1574,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.84,
+      "isolation_tex_entropy_global_abs": 0.2328,
+      "isolation_tex_entropy_local_abs": 0.1063,
+      "isolation_tex_entropy_local_multi": 0.0,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.898,
+      "isolation_tex_lbp_local_multi": 0.2124,
+      "isolation_tex_gab_global_abs": 1.0,
+      "isolation_tex_gab_local_abs": 0.0,
+      "isolation_tex_gab_local_multi": 0.9696,
+      "grouping_color_histogram_bins": 0.2527,
+      "grouping_line_hough": 0.6362
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.9237,
+        0.7268,
+        0.9037
+      ],
+      "symmetry": [
+        0.2481,
+        0.2636,
+        0.007
+      ],
+      "isolation": [
+        0.7959,
+        0.0514,
+        0.4179
+      ],
+      "grouping": [
+        0.6337,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  {
+    "fitness": -0.8551,
+    "avg_sim": 0.36489999294281006,
+    "avg_cc": 0.1573,
+    "avg_kl": 1.3772000074386597,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.0,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.9318,
+      "contrast_texture_gabor": 0.5016,
+      "contrast_texture_lbp": 0.2004,
+      "contrast_texture_entropy": 0.4647,
+      "symmetry_watershed": 1.0,
+      "symmetry_felzenszwalb": 0.2571,
+      "symmetry_seeded_region": 0.4167,
+      "symmetry_superpixel_preproc": 0.0,
+      "symmetry_superpixel": 0.0052,
+      "symmetry_watershed_h": 1.0,
+      "symmetry_felzenszwalb_h": 0.0925,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.0444,
+      "symmetry_superpixel_h": 0.8376,
+      "isolation_color_global_abs": 0.6695,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.9141,
+      "isolation_intensity_global_abs": 0.1517,
+      "isolation_intensity_local_abs": 0.1292,
+      "isolation_intensity_local_multi": 0.2412,
+      "isolation_tex_entropy_global_abs": 0.1334,
+      "isolation_tex_entropy_local_abs": 0.8429,
+      "isolation_tex_entropy_local_multi": 0.1629,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.898,
+      "isolation_tex_lbp_local_multi": 0.1983,
+      "isolation_tex_gab_global_abs": 0.8769,
+      "isolation_tex_gab_local_abs": 0.6703,
+      "isolation_tex_gab_local_multi": 0.9696,
+      "grouping_color_histogram_bins": 0.6183,
+      "grouping_line_hough": 0.6317
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.86,
+        1.0
+      ],
+      "symmetry": [
+        0.0,
+        0.5434,
+        0.1241
+      ],
+      "isolation": [
+        1.0,
+        0.4035,
+        0.0827
+      ],
+      "grouping": [
+        0.581,
+        0.0,
+        0.5615
+      ]
+    }
+  },
+  {
+    "fitness": -0.8551,
+    "avg_sim": 0.365200012922287,
+    "avg_cc": 0.1574,
+    "avg_kl": 1.3776999711990356,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.8352,
+      "contrast_edge_luminance_sobel": 0.1718,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.32,
+      "contrast_texture_gabor": 0.4817,
+      "contrast_texture_lbp": 0.2004,
+      "contrast_texture_entropy": 0.2269,
+      "symmetry_watershed": 0.6433,
+      "symmetry_felzenszwalb": 0.1044,
+      "symmetry_seeded_region": 0.3397,
+      "symmetry_superpixel_preproc": 0.068,
+      "symmetry_superpixel": 0.3488,
+      "symmetry_watershed_h": 0.9658,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.1379,
+      "symmetry_superpixel_h": 0.6187,
+      "isolation_color_global_abs": 0.968,
+      "isolation_color_local_abs": 0.0,
+      "isolation_color_local_multi": 0.5381,
+      "isolation_intensity_global_abs": 0.0052,
+      "isolation_intensity_local_abs": 0.0379,
+      "isolation_intensity_local_multi": 0.1964,
+      "isolation_tex_entropy_global_abs": 0.1428,
+      "isolation_tex_entropy_local_abs": 0.039,
+      "isolation_tex_entropy_local_multi": 0.1629,
+      "isolation_tex_lbp_global_abs": 0.0229,
+      "isolation_tex_lbp_local_abs": 1.0,
+      "isolation_tex_lbp_local_multi": 0.1983,
+      "isolation_tex_gab_global_abs": 0.8346,
+      "isolation_tex_gab_local_abs": 0.9721,
+      "isolation_tex_gab_local_multi": 0.8322,
+      "grouping_color_histogram_bins": 0.3852,
+      "grouping_line_hough": 0.6362
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.6564,
+        0.4455
+      ],
+      "symmetry": [
+        0.0,
+        0.2423,
+        0.2676
+      ],
+      "isolation": [
+        1.0,
+        0.4035,
+        0.0
+      ],
+      "grouping": [
+        0.5994,
+        0.2146,
+        0.3183
+      ]
+    }
+  },
+  {
+    "fitness": -0.8552,
+    "avg_sim": 0.36419999599456787,
+    "avg_cc": 0.1576,
+    "avg_kl": 1.3770999908447266,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.8946,
+      "contrast_edge_luminance_sobel": 0.1074,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.8384,
+      "contrast_texture_gabor": 0.4057,
+      "contrast_texture_lbp": 0.2004,
+      "contrast_texture_entropy": 0.5869,
+      "symmetry_watershed": 0.9187,
+      "symmetry_felzenszwalb": 0.039,
+      "symmetry_seeded_region": 0.2842,
+      "symmetry_superpixel_preproc": 0.1264,
+      "symmetry_superpixel": 0.1583,
+      "symmetry_watershed_h": 0.8447,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0658,
+      "symmetry_superpixel_preproc_h": 0.0186,
+      "symmetry_superpixel_h": 0.4969,
+      "isolation_color_global_abs": 1.0,
+      "isolation_color_local_abs": 0.1928,
+      "isolation_color_local_multi": 0.3864,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0528,
+      "isolation_intensity_local_multi": 0.6562,
+      "isolation_tex_entropy_global_abs": 0.1428,
+      "isolation_tex_entropy_local_abs": 0.5115,
+      "isolation_tex_entropy_local_multi": 0.1988,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.7351,
+      "isolation_tex_lbp_local_multi": 0.4699,
+      "isolation_tex_gab_global_abs": 0.629,
+      "isolation_tex_gab_local_abs": 1.0,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.133,
+      "grouping_line_hough": 0.6587
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.7913,
+        0.5264,
+        0.683
+      ],
+      "symmetry": [
+        0.0,
+        0.754,
+        0.2709
+      ],
+      "isolation": [
+        1.0,
+        0.182,
+        0.3534
+      ],
+      "grouping": [
+        0.722,
+        0.0,
+        0.0548
+      ]
+    }
+  },
+  {
+    "fitness": -0.8553,
+    "avg_sim": 0.3644999861717224,
+    "avg_cc": 0.1576,
+    "avg_kl": 1.3774000406265259,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.8096,
+      "contrast_edge_luminance_sobel": 0.1387,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 0.8831,
+      "contrast_region_color_slic": 0.8045,
+      "contrast_texture_gabor": 0.2821,
+      "contrast_texture_lbp": 0.2004,
+      "contrast_texture_entropy": 0.6227,
+      "symmetry_watershed": 1.0,
+      "symmetry_felzenszwalb": 0.4674,
+      "symmetry_seeded_region": 0.4256,
+      "symmetry_superpixel_preproc": 0.0426,
+      "symmetry_superpixel": 0.0556,
+      "symmetry_watershed_h": 1.0,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.0412,
+      "symmetry_superpixel_h": 0.4442,
+      "isolation_color_global_abs": 0.6361,
+      "isolation_color_local_abs": 0.0214,
+      "isolation_color_local_multi": 0.5381,
+      "isolation_intensity_global_abs": 0.2553,
+      "isolation_intensity_local_abs": 0.1464,
+      "isolation_intensity_local_multi": 0.2985,
+      "isolation_tex_entropy_global_abs": 0.2295,
+      "isolation_tex_entropy_local_abs": 0.1717,
+      "isolation_tex_entropy_local_multi": 0.218,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.6735,
+      "isolation_tex_lbp_local_multi": 0.0,
+      "isolation_tex_gab_global_abs": 0.9356,
+      "isolation_tex_gab_local_abs": 0.0931,
+      "isolation_tex_gab_local_multi": 0.9696,
+      "grouping_color_histogram_bins": 0.3874,
+      "grouping_line_hough": 0.6362
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.7913,
+        0.4098,
+        0.5523
+      ],
+      "symmetry": [
+        0.0,
+        0.4804,
+        0.0
+      ],
+      "isolation": [
+        1.0,
+        0.0514,
+        0.0827
+      ],
+      "grouping": [
+        0.581,
+        0.0,
+        0.1138
+      ]
+    }
+  },
+  {
+    "fitness": -0.8553,
+    "avg_sim": 0.364300012588501,
+    "avg_cc": 0.1567,
+    "avg_kl": 1.3762999773025513,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.8946,
+      "contrast_edge_luminance_sobel": 0.1074,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.8384,
+      "contrast_texture_gabor": 0.1692,
+      "contrast_texture_lbp": 0.2004,
+      "contrast_texture_entropy": 0.5869,
+      "symmetry_watershed": 0.9187,
+      "symmetry_felzenszwalb": 0.039,
+      "symmetry_seeded_region": 0.5845,
+      "symmetry_superpixel_preproc": 0.1732,
+      "symmetry_superpixel": 0.1583,
+      "symmetry_watershed_h": 0.8447,
+      "symmetry_felzenszwalb_h": 0.2026,
+      "symmetry_seeded_region_h": 0.0845,
+      "symmetry_superpixel_preproc_h": 0.0168,
+      "symmetry_superpixel_h": 0.1851,
+      "isolation_color_global_abs": 1.0,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.4762,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.6562,
+      "isolation_tex_entropy_global_abs": 0.1428,
+      "isolation_tex_entropy_local_abs": 0.5115,
+      "isolation_tex_entropy_local_multi": 0.0,
+      "isolation_tex_lbp_global_abs": 0.0219,
+      "isolation_tex_lbp_local_abs": 0.491,
+      "isolation_tex_lbp_local_multi": 0.4578,
+      "isolation_tex_gab_global_abs": 0.629,
+      "isolation_tex_gab_local_abs": 0.3328,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.2763,
+      "grouping_line_hough": 0.6362
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.6651,
+        0.5264,
+        0.683
+      ],
+      "symmetry": [
+        0.0,
+        0.754,
+        0.0
+      ],
+      "isolation": [
+        0.6717,
+        0.7386,
+        0.2997
+      ],
+      "grouping": [
+        0.722,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  {
+    "fitness": -0.8555,
+    "avg_sim": 0.3653999865055084,
+    "avg_cc": 0.1564,
+    "avg_kl": 1.3773000240325928,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.0,
+      "contrast_edge_color_sobel": 0.9141,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.7065,
+      "contrast_texture_gabor": 0.5016,
+      "contrast_texture_lbp": 0.23,
+      "contrast_texture_entropy": 0.4194,
+      "symmetry_watershed": 0.6433,
+      "symmetry_felzenszwalb": 0.1044,
+      "symmetry_seeded_region": 0.2842,
+      "symmetry_superpixel_preproc": 0.0388,
+      "symmetry_superpixel": 0.0709,
+      "symmetry_watershed_h": 0.3063,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.5802,
+      "symmetry_superpixel_preproc_h": 0.0,
+      "symmetry_superpixel_h": 0.4592,
+      "isolation_color_global_abs": 0.7187,
+      "isolation_color_local_abs": 0.0214,
+      "isolation_color_local_multi": 0.7874,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.1995,
+      "isolation_tex_entropy_global_abs": 0.0929,
+      "isolation_tex_entropy_local_abs": 0.0,
+      "isolation_tex_entropy_local_multi": 0.1629,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.5974,
+      "isolation_tex_lbp_local_multi": 0.0199,
+      "isolation_tex_gab_global_abs": 0.8346,
+      "isolation_tex_gab_local_abs": 0.4661,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.2055,
+      "grouping_line_hough": 1.0
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.4282,
+        0.5191
+      ],
+      "symmetry": [
+        0.1442,
+        0.5434,
+        0.3612
+      ],
+      "isolation": [
+        1.0,
+        0.6479,
+        0.3143
+      ],
+      "grouping": [
+        0.5256,
+        0.4084,
+        0.2001
+      ]
+    }
+  },
+  {
+    "fitness": -0.8556,
+    "avg_sim": 0.36480000615119934,
+    "avg_cc": 0.1571,
+    "avg_kl": 1.377500057220459,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.1096,
+      "contrast_edge_color_sobel": 0.962,
+      "contrast_edge_color_gradient": 0.7034,
+      "contrast_region_color_slic": 0.4852,
+      "contrast_texture_gabor": 0.5509,
+      "contrast_texture_lbp": 0.1827,
+      "contrast_texture_entropy": 0.5432,
+      "symmetry_watershed": 1.0,
+      "symmetry_felzenszwalb": 0.0,
+      "symmetry_seeded_region": 0.725,
+      "symmetry_superpixel_preproc": 0.2821,
+      "symmetry_superpixel": 0.3737,
+      "symmetry_watershed_h": 0.9819,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0488,
+      "symmetry_superpixel_preproc_h": 0.1606,
+      "symmetry_superpixel_h": 0.4421,
+      "isolation_color_global_abs": 0.6405,
+      "isolation_color_local_abs": 0.0589,
+      "isolation_color_local_multi": 0.9181,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.02,
+      "isolation_intensity_local_multi": 0.9138,
+      "isolation_tex_entropy_global_abs": 0.038,
+      "isolation_tex_entropy_local_abs": 0.0753,
+      "isolation_tex_entropy_local_multi": 0.2496,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.1041,
+      "isolation_tex_lbp_local_multi": 0.5799,
+      "isolation_tex_gab_global_abs": 0.6782,
+      "isolation_tex_gab_local_abs": 0.2524,
+      "isolation_tex_gab_local_multi": 0.9109,
+      "grouping_color_histogram_bins": 0.2445,
+      "grouping_line_hough": 0.8935
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.9554,
+        0.6372,
+        0.4868
+      ],
+      "symmetry": [
+        0.0,
+        0.3355,
+        0.4069
+      ],
+      "isolation": [
+        0.8424,
+        0.5742,
+        0.0814
+      ],
+      "grouping": [
+        0.3942,
+        0.175,
+        0.7542
+      ]
+    }
+  },
+  {
+    "fitness": -0.8556,
+    "avg_sim": 0.36469998955726624,
+    "avg_cc": 0.1555,
+    "avg_kl": 1.3759000301361084,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.3537,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.8378,
+      "contrast_texture_gabor": 0.5016,
+      "contrast_texture_lbp": 0.2004,
+      "contrast_texture_entropy": 0.2483,
+      "symmetry_watershed": 1.0,
+      "symmetry_felzenszwalb": 0.2879,
+      "symmetry_seeded_region": 0.4333,
+      "symmetry_superpixel_preproc": 0.0,
+      "symmetry_superpixel": 0.0052,
+      "symmetry_watershed_h": 1.0,
+      "symmetry_felzenszwalb_h": 0.0925,
+      "symmetry_seeded_region_h": 0.2105,
+      "symmetry_superpixel_preproc_h": 0.0444,
+      "symmetry_superpixel_h": 0.8376,
+      "isolation_color_global_abs": 0.8583,
+      "isolation_color_local_abs": 0.2721,
+      "isolation_color_local_multi": 0.7116,
+      "isolation_intensity_global_abs": 0.1889,
+      "isolation_intensity_local_abs": 0.2233,
+      "isolation_intensity_local_multi": 0.2412,
+      "isolation_tex_entropy_global_abs": 0.1334,
+      "isolation_tex_entropy_local_abs": 1.0,
+      "isolation_tex_entropy_local_multi": 0.1629,
+      "isolation_tex_lbp_global_abs": 0.0282,
+      "isolation_tex_lbp_local_abs": 0.898,
+      "isolation_tex_lbp_local_multi": 0.0071,
+      "isolation_tex_gab_global_abs": 0.8769,
+      "isolation_tex_gab_local_abs": 0.5289,
+      "isolation_tex_gab_local_multi": 0.9696,
+      "grouping_color_histogram_bins": 0.383,
+      "grouping_line_hough": 0.6317
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "symmetry": [
+        0.0,
+        0.5434,
+        0.2635
+      ],
+      "isolation": [
+        1.0,
+        0.4035,
+        0.0827
+      ],
+      "grouping": [
+        0.581,
+        0.0,
+        0.4293
+      ]
+    }
+  },
+  {
+    "fitness": -0.8557,
+    "avg_sim": 0.364300012588501,
+    "avg_cc": 0.1562,
+    "avg_kl": 1.376099944114685,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.2163,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.32,
+      "contrast_texture_gabor": 0.4096,
+      "contrast_texture_lbp": 0.2605,
+      "contrast_texture_entropy": 0.4647,
+      "symmetry_watershed": 0.6433,
+      "symmetry_felzenszwalb": 0.1044,
+      "symmetry_seeded_region": 0.3397,
+      "symmetry_superpixel_preproc": 0.6338,
+      "symmetry_superpixel": 0.0417,
+      "symmetry_watershed_h": 0.8447,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.1379,
+      "symmetry_superpixel_h": 0.4592,
+      "isolation_color_global_abs": 1.0,
+      "isolation_color_local_abs": 0.1556,
+      "isolation_color_local_multi": 0.5381,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.1964,
+      "isolation_tex_entropy_global_abs": 0.1428,
+      "isolation_tex_entropy_local_abs": 0.1063,
+      "isolation_tex_entropy_local_multi": 0.1629,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.6677,
+      "isolation_tex_lbp_local_multi": 0.1983,
+      "isolation_tex_gab_global_abs": 0.8346,
+      "isolation_tex_gab_local_abs": 0.8261,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.2763,
+      "grouping_line_hough": 0.6587
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.4098,
+        0.4455
+      ],
+      "symmetry": [
+        0.0,
+        0.6066,
+        0.1502
+      ],
+      "isolation": [
+        1.0,
+        0.4535,
+        0.2477
+      ],
+      "grouping": [
+        0.722,
+        0.2047,
+        0.3526
+      ]
+    }
+  },
+  {
+    "fitness": -0.8557,
+    "avg_sim": 0.36550000309944153,
+    "avg_cc": 0.1594,
+    "avg_kl": 1.3805999755859375,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.333,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.4695,
+      "contrast_texture_gabor": 0.4096,
+      "contrast_texture_lbp": 0.2874,
+      "contrast_texture_entropy": 0.2269,
+      "symmetry_watershed": 0.6433,
+      "symmetry_felzenszwalb": 0.1044,
+      "symmetry_seeded_region": 0.3397,
+      "symmetry_superpixel_preproc": 0.0,
+      "symmetry_superpixel": 0.3346,
+      "symmetry_watershed_h": 0.5425,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.1379,
+      "symmetry_superpixel_h": 0.4435,
+      "isolation_color_global_abs": 0.7187,
+      "isolation_color_local_abs": 0.0,
+      "isolation_color_local_multi": 0.5381,
+      "isolation_intensity_global_abs": 0.0052,
+      "isolation_intensity_local_abs": 0.0379,
+      "isolation_intensity_local_multi": 0.0982,
+      "isolation_tex_entropy_global_abs": 0.1428,
+      "isolation_tex_entropy_local_abs": 0.039,
+      "isolation_tex_entropy_local_multi": 0.2682,
+      "isolation_tex_lbp_global_abs": 0.0034,
+      "isolation_tex_lbp_local_abs": 0.4542,
+      "isolation_tex_lbp_local_multi": 0.0,
+      "isolation_tex_gab_global_abs": 0.8346,
+      "isolation_tex_gab_local_abs": 0.9721,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.5845,
+      "grouping_line_hough": 0.5849
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.6564,
+        0.4676
+      ],
+      "symmetry": [
+        0.0,
+        0.5772,
+        0.034
+      ],
+      "isolation": [
+        0.606,
+        0.6479,
+        0.0081
+      ],
+      "grouping": [
+        0.5799,
+        0.0,
+        0.3183
+      ]
+    }
+  },
+  {
+    "fitness": -0.8558,
+    "avg_sim": 0.3646000027656555,
+    "avg_cc": 0.157,
+    "avg_kl": 1.3774000406265259,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.8352,
+      "contrast_edge_luminance_sobel": 0.1387,
+      "contrast_edge_color_sobel": 0.8137,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.32,
+      "contrast_texture_gabor": 0.2821,
+      "contrast_texture_lbp": 0.2004,
+      "contrast_texture_entropy": 0.2269,
+      "symmetry_watershed": 0.8284,
+      "symmetry_felzenszwalb": 0.0,
+      "symmetry_seeded_region": 0.3397,
+      "symmetry_superpixel_preproc": 0.087,
+      "symmetry_superpixel": 0.1463,
+      "symmetry_watershed_h": 0.8893,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.1379,
+      "symmetry_superpixel_h": 0.8376,
+      "isolation_color_global_abs": 0.968,
+      "isolation_color_local_abs": 0.0,
+      "isolation_color_local_multi": 0.6724,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.285,
+      "isolation_tex_entropy_global_abs": 0.0,
+      "isolation_tex_entropy_local_abs": 0.039,
+      "isolation_tex_entropy_local_multi": 0.218,
+      "isolation_tex_lbp_global_abs": 0.0229,
+      "isolation_tex_lbp_local_abs": 1.0,
+      "isolation_tex_lbp_local_multi": 0.0,
+      "isolation_tex_gab_global_abs": 0.4707,
+      "isolation_tex_gab_local_abs": 0.5432,
+      "isolation_tex_gab_local_multi": 0.8322,
+      "grouping_color_histogram_bins": 0.3874,
+      "grouping_line_hough": 0.6362
+    },
+    "modulation_weights": {
+      "contrast": [
+        1.0,
+        0.6564,
+        0.4455
+      ],
+      "symmetry": [
+        0.0,
+        0.4804,
+        0.0
+      ],
+      "isolation": [
+        1.0,
+        0.6743,
+        0.0
+      ],
+      "grouping": [
+        0.5994,
+        0.0,
+        0.3183
+      ]
+    }
+  },
+  {
+    "fitness": -0.8559,
+    "avg_sim": 0.36489999294281006,
+    "avg_cc": 0.1569,
+    "avg_kl": 1.3776999711990356,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.2153,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.9891,
+      "contrast_texture_gabor": 0.5837,
+      "contrast_texture_lbp": 0.2555,
+      "contrast_texture_entropy": 0.4647,
+      "symmetry_watershed": 0.9229,
+      "symmetry_felzenszwalb": 0.068,
+      "symmetry_seeded_region": 0.4167,
+      "symmetry_superpixel_preproc": 0.0,
+      "symmetry_superpixel": 0.0052,
+      "symmetry_watershed_h": 0.9362,
+      "symmetry_felzenszwalb_h": 0.0925,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.0444,
+      "symmetry_superpixel_h": 0.8376,
+      "isolation_color_global_abs": 0.7426,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.9141,
+      "isolation_intensity_global_abs": 0.1517,
+      "isolation_intensity_local_abs": 0.1292,
+      "isolation_intensity_local_multi": 0.0551,
+      "isolation_tex_entropy_global_abs": 0.0,
+      "isolation_tex_entropy_local_abs": 0.8429,
+      "isolation_tex_entropy_local_multi": 0.1629,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.898,
+      "isolation_tex_lbp_local_multi": 0.4265,
+      "isolation_tex_gab_global_abs": 0.8769,
+      "isolation_tex_gab_local_abs": 0.6703,
+      "isolation_tex_gab_local_multi": 0.9696,
+      "grouping_color_histogram_bins": 0.6183,
+      "grouping_line_hough": 0.6317
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.7753,
+        0.86,
+        1.0
+      ],
+      "symmetry": [
+        0.0,
+        0.6188,
+        0.0
+      ],
+      "isolation": [
+        0.9606,
+        0.2912,
+        0.0827
+      ],
+      "grouping": [
+        0.7894,
+        0.0,
+        0.5615
+      ]
+    }
+  },
+  {
+    "fitness": -0.8559,
+    "avg_sim": 0.36469998955726624,
+    "avg_cc": 0.1558,
+    "avg_kl": 1.3763999938964844,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.3404,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 1.0,
+      "contrast_region_color_slic": 0.8384,
+      "contrast_texture_gabor": 0.1692,
+      "contrast_texture_lbp": 0.2004,
+      "contrast_texture_entropy": 0.5019,
+      "symmetry_watershed": 0.8113,
+      "symmetry_felzenszwalb": 0.0335,
+      "symmetry_seeded_region": 0.3463,
+      "symmetry_superpixel_preproc": 0.0,
+      "symmetry_superpixel": 0.0166,
+      "symmetry_watershed_h": 0.5425,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.2468,
+      "symmetry_superpixel_preproc_h": 0.0168,
+      "symmetry_superpixel_h": 0.4592,
+      "isolation_color_global_abs": 0.7187,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.3832,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.0554,
+      "isolation_intensity_local_multi": 0.0982,
+      "isolation_tex_entropy_global_abs": 0.0,
+      "isolation_tex_entropy_local_abs": 0.6582,
+      "isolation_tex_entropy_local_multi": 0.2682,
+      "isolation_tex_lbp_global_abs": 0.0167,
+      "isolation_tex_lbp_local_abs": 0.491,
+      "isolation_tex_lbp_local_multi": 0.3612,
+      "isolation_tex_gab_global_abs": 0.643,
+      "isolation_tex_gab_local_abs": 1.0,
+      "isolation_tex_gab_local_multi": 1.0,
+      "grouping_color_histogram_bins": 0.0,
+      "grouping_line_hough": 0.4425
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.6787,
+        0.5264,
+        0.8323
+      ],
+      "symmetry": [
+        0.2194,
+        0.6066,
+        0.0
+      ],
+      "isolation": [
+        0.606,
+        0.6479,
+        0.2339
+      ],
+      "grouping": [
+        0.5799,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  {
+    "fitness": -0.8559,
+    "avg_sim": 0.36469998955726624,
+    "avg_cc": 0.1559,
+    "avg_kl": 1.3765000104904175,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 0.8946,
+      "contrast_edge_luminance_sobel": 0.0,
+      "contrast_edge_color_sobel": 1.0,
+      "contrast_edge_color_gradient": 0.8831,
+      "contrast_region_color_slic": 0.7442,
+      "contrast_texture_gabor": 0.5243,
+      "contrast_texture_lbp": 0.23,
+      "contrast_texture_entropy": 0.3063,
+      "symmetry_watershed": 1.0,
+      "symmetry_felzenszwalb": 0.2358,
+      "symmetry_seeded_region": 0.4099,
+      "symmetry_superpixel_preproc": 0.0426,
+      "symmetry_superpixel": 0.1583,
+      "symmetry_watershed_h": 0.3063,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.0412,
+      "symmetry_superpixel_h": 0.1783,
+      "isolation_color_global_abs": 0.6361,
+      "isolation_color_local_abs": 0.0575,
+      "isolation_color_local_multi": 0.5381,
+      "isolation_intensity_global_abs": 0.1574,
+      "isolation_intensity_local_abs": 0.0,
+      "isolation_intensity_local_multi": 0.7028,
+      "isolation_tex_entropy_global_abs": 0.2328,
+      "isolation_tex_entropy_local_abs": 0.1063,
+      "isolation_tex_entropy_local_multi": 0.0,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.898,
+      "isolation_tex_lbp_local_multi": 0.2124,
+      "isolation_tex_gab_global_abs": 1.0,
+      "isolation_tex_gab_local_abs": 0.0931,
+      "isolation_tex_gab_local_multi": 0.9696,
+      "grouping_color_histogram_bins": 0.1936,
+      "grouping_line_hough": 0.6362
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.7913,
+        0.7268,
+        0.9037
+      ],
+      "symmetry": [
+        0.2481,
+        0.2636,
+        0.007
+      ],
+      "isolation": [
+        0.7959,
+        0.0514,
+        0.4179
+      ],
+      "grouping": [
+        0.6337,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  {
+    "fitness": -0.8559,
+    "avg_sim": 0.36469998955726624,
+    "avg_cc": 0.157,
+    "avg_kl": 1.377500057220459,
+    "base_weights": {
+      "contrast_edge_luminance_laplacian": 1.0,
+      "contrast_edge_luminance_sobel": 0.1096,
+      "contrast_edge_color_sobel": 0.962,
+      "contrast_edge_color_gradient": 0.7034,
+      "contrast_region_color_slic": 0.4852,
+      "contrast_texture_gabor": 0.5509,
+      "contrast_texture_lbp": 0.1827,
+      "contrast_texture_entropy": 0.5432,
+      "symmetry_watershed": 1.0,
+      "symmetry_felzenszwalb": 0.1133,
+      "symmetry_seeded_region": 0.725,
+      "symmetry_superpixel_preproc": 0.2821,
+      "symmetry_superpixel": 0.3737,
+      "symmetry_watershed_h": 0.9819,
+      "symmetry_felzenszwalb_h": 0.0,
+      "symmetry_seeded_region_h": 0.0,
+      "symmetry_superpixel_preproc_h": 0.1606,
+      "symmetry_superpixel_h": 0.4421,
+      "isolation_color_global_abs": 0.6405,
+      "isolation_color_local_abs": 0.0589,
+      "isolation_color_local_multi": 0.9181,
+      "isolation_intensity_global_abs": 0.0,
+      "isolation_intensity_local_abs": 0.02,
+      "isolation_intensity_local_multi": 0.9138,
+      "isolation_tex_entropy_global_abs": 0.038,
+      "isolation_tex_entropy_local_abs": 0.0753,
+      "isolation_tex_entropy_local_multi": 0.2496,
+      "isolation_tex_lbp_global_abs": 0.0,
+      "isolation_tex_lbp_local_abs": 0.0,
+      "isolation_tex_lbp_local_multi": 0.5799,
+      "isolation_tex_gab_global_abs": 0.6782,
+      "isolation_tex_gab_local_abs": 0.0344,
+      "isolation_tex_gab_local_multi": 0.9109,
+      "grouping_color_histogram_bins": 0.2445,
+      "grouping_line_hough": 0.8935
+    },
+    "modulation_weights": {
+      "contrast": [
+        0.985,
+        0.6372,
+        0.4868
+      ],
+      "symmetry": [
+        0.0,
+        0.3355,
+        0.4069
+      ],
+      "isolation": [
+        0.8424,
+        0.5885,
+        0.0814
+      ],
+      "grouping": [
+        0.3942,
+        0.175,
+        0.7542
+      ]
+    }
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "fitness": 2.2681,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.6763,
+      "contrast_edge_luminance_sobel": 0.1891,
+      "contrast_edge_color_sobel": 0.8355,
+      "contrast_edge_color_gradient": 0.5107,
+      "contrast_region_color_slic": 0.2921
+    }
+  },
+  {
+    "fitness": 2.2681,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.6763,
+      "contrast_edge_luminance_sobel": 0.1891,
+      "contrast_edge_color_sobel": 0.8355,
+      "contrast_edge_color_gradient": 0.5107,
+      "contrast_region_color_slic": 0.2921
+    }
+  }
+]

@@ -9,7 +9,7 @@ from skimage.color import rgb2lab
 from skimage.util import img_as_float
 from skimage import graph
 
-from heuristics import symmetry_saliency
+from .heuristics.heuristics import HEURISTIC_FUNCTIONS
 
 class SaliencyModel:
     """Dynamic heuristic-based saliency model with configurable weights and activation."""
@@ -359,7 +359,7 @@ class SaliencyModel:
         combined_saliency = self.combine_saliency_maps(heuristic_maps)
         return combined_saliency
 
-    def generate_saliency_maps_for_image(self, image):
+    def generate_saliency_maps_for_image_o(self, image):
         heuristic_maps = {}
 
         overall_saturation = self.calculate_overall_saturation(image)
@@ -385,5 +385,23 @@ class SaliencyModel:
         if "symmetry" in self.heuristic_config:
             sym_map = symmetry_saliency(image)
             heuristic_maps["symmetry"] = sym_map
+
+        return heuristic_maps
+
+
+
+    def generate_saliency_maps_for_image(self, image):
+        heuristic_maps = {}
+
+        for name, weight in self.heuristic_config.items():
+            weight = weight.get("weight", 0)
+            if weight < 1e-6:
+                continue
+            if name not in HEURISTIC_FUNCTIONS:
+                print(f"[Warning] Heuristic not found: {name}")
+                continue
+            heuristic_fn = HEURISTIC_FUNCTIONS[name]
+            saliency_map = heuristic_fn(image)
+            heuristic_maps[name] = saliency_map
 
         return heuristic_maps

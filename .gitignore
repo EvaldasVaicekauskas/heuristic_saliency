@@ -33,3 +33,8 @@ fixation_maps/
 # OS junk
 .DS_Store
 Thumbs.db
+
+# Images
+*.png
+*.jpg
+*.jpeg

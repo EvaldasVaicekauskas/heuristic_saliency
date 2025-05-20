@@ -1,0 +1,52 @@
+{
+  "features": [
+    "colorfulness",
+    "texture_energy",
+    "intensity_variation"
+  ],
+  "groups": {
+    "contrast": [
+      "contrast_edge_luminance_laplacian",
+      "contrast_edge_luminance_sobel",
+      "contrast_edge_color_sobel",
+      "contrast_edge_color_gradient",
+      "contrast_region_color_slic",
+      "contrast_texture_gabor",
+      "contrast_texture_lbp",
+      "contrast_texture_entropy"
+    ],
+    "symmetry": [
+      "symmetry_watershed",
+      "symmetry_felzenszwalb",
+      "symmetry_seeded_region",
+      "symmetry_superpixel_preproc",
+      "symmetry_superpixel",
+      "symmetry_watershed_h",
+      "symmetry_felzenszwalb_h",
+      "symmetry_seeded_region_h",
+      "symmetry_superpixel_preproc_h",
+      "symmetry_superpixel_h"
+    ],
+    "isolation": [
+      "isolation_color_global_abs",
+      "isolation_color_local_abs",
+      "isolation_color_local_multi",
+      "isolation_intensity_global_abs",
+      "isolation_intensity_local_abs",
+      "isolation_intensity_local_multi",
+      "isolation_tex_entropy_global_abs",
+      "isolation_tex_entropy_local_abs",
+      "isolation_tex_entropy_local_multi",
+      "isolation_tex_lbp_global_abs",
+      "isolation_tex_lbp_local_abs",
+      "isolation_tex_lbp_local_multi",
+      "isolation_tex_gab_global_abs",
+      "isolation_tex_gab_local_abs",
+      "isolation_tex_gab_local_multi"
+    ],
+    "grouping": [
+      "grouping_color_histogram_bins",
+      "grouping_line_hough"
+    ]
+  }
+}

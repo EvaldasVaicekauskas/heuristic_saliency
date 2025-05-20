@@ -1,0 +1,22 @@
+{
+  "heuristics": {
+
+
+
+  "contrast_edge_luminance_laplacian":  1,
+  "contrast_edge_luminance_sobel":  1,
+  "contrast_edge_color_sobel":  1,
+  "contrast_edge_color_gradient":  1,
+  "contrast_region_color_slic":  1
+
+
+},
+
+  "population_size": 2,
+  "generations": 3,
+  "mutation_rate": 0.1,
+  "crossover_rate": 0.7,
+  "weight_threshold": 0.00
+}
+
+

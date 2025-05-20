@@ -1,0 +1,82 @@
+{
+  "generation": 350,
+  "fitness": -0.8025,
+  "avg_sim": 0.3702999949455261,
+  "avg_cc": 0.178,
+  "avg_kl": 1.3507000207901,
+  "base_weights": {
+    "contrast_edge_luminance_laplacian": 0.6648,
+    "contrast_edge_luminance_sobel": 0.1626,
+    "contrast_edge_color_sobel": 0.9694,
+    "contrast_edge_color_gradient": 0.4474,
+    "contrast_region_color_slic": 0.2582,
+    "contrast_texture_gabor": 0.036,
+    "contrast_texture_lbp": 0.1011,
+    "contrast_texture_entropy": 0.0922,
+    "symmetry_watershed": 1.0,
+    "symmetry_felzenszwalb": 0.0,
+    "symmetry_seeded_region": 0.3193,
+    "symmetry_superpixel_preproc": 0.1452,
+    "symmetry_superpixel": 0.0,
+    "symmetry_watershed_h": 0.2127,
+    "symmetry_felzenszwalb_h": 0.0,
+    "symmetry_seeded_region_h": 0.0,
+    "symmetry_superpixel_preproc_h": 0.0068,
+    "symmetry_superpixel_h": 0.0222,
+    "isolation_color_global_abs": 0.5251,
+    "isolation_color_local_abs": 0.0,
+    "isolation_color_local_multi": 0.0898,
+    "isolation_intensity_global_abs": 0.0,
+    "isolation_intensity_local_abs": 0.0,
+    "isolation_intensity_local_multi": 0.0173,
+    "isolation_tex_entropy_global_abs": 0.0,
+    "isolation_tex_entropy_local_abs": 0.0099,
+    "isolation_tex_entropy_local_multi": 0.0,
+    "isolation_tex_lbp_global_abs": 0.0085,
+    "isolation_tex_lbp_local_abs": 0.2629,
+    "isolation_tex_lbp_local_multi": 0.0286,
+    "isolation_tex_gab_global_abs": 0.4428,
+    "isolation_tex_gab_local_abs": 0.0199,
+    "isolation_tex_gab_local_multi": 1.0,
+    "grouping_color_histogram_bins": 0.2671,
+    "grouping_line_hough": 1.0
+  },
+  "modulation_weights": {
+    "contrast": [
+      0.5827,
+      0.7991,
+      0.9103,
+      0.9997,
+      0.4365,
+      0.6533,
+      0.1966
+    ],
+    "symmetry": [
+      0.6186,
+      0.7516,
+      0.9962,
+      0.1441,
+      0.0,
+      0.9287,
+      0.4578
+    ],
+    "isolation": [
+      0.6596,
+      0.8338,
+      0.2744,
+      0.8842,
+      0.5456,
+      0.6152,
+      0.2671
+    ],
+    "grouping": [
+      0.9723,
+      0.1375,
+      0.0862,
+      0.3353,
+      0.763,
+      1.0,
+      0.0163
+    ]
+  }
+}

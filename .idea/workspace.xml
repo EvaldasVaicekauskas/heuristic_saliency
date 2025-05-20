@@ -5,9 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ce17240-ad5d-497e-865e-5c0f1d396f86" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/evaluation/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ga/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ga/config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ga/genetic.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ga/genetic_mod.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ga/run_ga.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ga/run_ga_mod.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ga/template_config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generate_maps/gen_maps_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generate_maps/generate_maps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generate_maps/postprocessing.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/heuristics/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modulation/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modulation/modulation_config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modulation/modulation_features.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modulation/modulation_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/remove_padding.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/heuristic_tester.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/src/heuristic_tester.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/heuristics.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/heuristics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evaluation/evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/evaluation/evaluation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evaluation/resize_saliency_maps.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/evaluation/resize_saliency_maps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evaluation/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/evaluation/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ga/checkpoint.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ga/config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ga/genetic.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ga/run_ga.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ga/template_config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/heuristic_tester.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/src/heuristics/heuristic_tester.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/heuristic_tester_local.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/heuristics/heuristic_tester_local.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/heuristics.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/heuristics/heuristics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/saliency.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/saliency.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test_dataset_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/test_dataset_loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,17 +80,24 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Python.gen_maps_2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.generate_maps.executor&quot;: &quot;Run&quot;,
     &quot;Python.genetic.executor&quot;: &quot;Run&quot;,
     &quot;Python.heuristic_tester.executor&quot;: &quot;Run&quot;,
     &quot;Python.heuristic_tester_local.executor&quot;: &quot;Run&quot;,
     &quot;Python.heuristics.executor&quot;: &quot;Run&quot;,
+    &quot;Python.modulation_features.executor&quot;: &quot;Run&quot;,
+    &quot;Python.modulation_utils.executor&quot;: &quot;Run&quot;,
+    &quot;Python.postprocessing.executor&quot;: &quot;Run&quot;,
+    &quot;Python.remove_padding.executor&quot;: &quot;Run&quot;,
     &quot;Python.run_ga.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_ga_mod.executor&quot;: &quot;Run&quot;,
     &quot;Python.test_cuda.executor&quot;: &quot;Run&quot;,
     &quot;Python.test_dataset_loader.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/evaldas/PycharmProjects/heuristic_saliency/src&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/evaldas/PycharmProjects/heuristic_saliency/src/generate_maps/generate_maps.py&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
@@ -68,9 +106,37 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/modulation" />
+      <recent name="$PROJECT_DIR$/src/test" />
+      <recent name="$PROJECT_DIR$/src/heuristics" />
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/visualizations/test_imgs" />
-      <recent name="$PROJECT_DIR$/data/images" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="generate_maps" type="PythonConfigurationType" factoryName="Python">
+      <module name="heuristic_saliency" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12 virtualenv at ~/PycharmProjects/heuristic_saliency/.venv" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/generate_maps/generate_maps.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>

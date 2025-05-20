@@ -1,0 +1,58 @@
+{
+  "heuristics": {
+
+  "contrast_edge_luminance_laplacian":  1,
+  "contrast_edge_luminance_sobel":  1,
+  "contrast_edge_color_sobel":  1,
+  "contrast_edge_color_gradient":  1,
+  "contrast_region_color_slic":  1,
+
+  "contrast_texture_gabor":  1,
+  "contrast_texture_lbp":  1,
+  "contrast_texture_entropy":  1,
+
+  "symmetry_watershed":  1,
+  "symmetry_felzenszwalb":  1,
+  "symmetry_seeded_region":  1,
+  "symmetry_superpixel_preproc":  1,
+  "symmetry_superpixel":  1,
+
+  "symmetry_watershed_h":  1,
+  "symmetry_felzenszwalb_h":  1,
+  "symmetry_seeded_region_h":  1,
+  "symmetry_superpixel_preproc_h":  1,
+  "symmetry_superpixel_h":  1,
+
+  "isolation_color_global_abs":  1,
+  "isolation_color_local_abs":  1,
+  "isolation_color_local_multi":  1,
+
+  "isolation_intensity_global_abs":  1,
+  "isolation_intensity_local_abs":  1,
+  "isolation_intensity_local_multi":  1,
+
+  "isolation_tex_entropy_global_abs":  1,
+  "isolation_tex_entropy_local_abs":  1,
+  "isolation_tex_entropy_local_multi":  1,
+
+  "isolation_tex_lbp_global_abs":  1,
+  "isolation_tex_lbp_local_abs":  1,
+  "isolation_tex_lbp_local_multi":  1,
+
+  "isolation_tex_gab_global_abs":  1,
+  "isolation_tex_gab_local_abs":  1,
+  "isolation_tex_gab_local_multi":  1,
+
+  "grouping_color_histogram_bins":  1,
+
+  "grouping_line_hough":  1
+  },
+
+  "population_size": 30,
+  "generations": 150,
+  "mutation_rate": 0.1,
+  "crossover_rate": 0.7,
+  "weight_threshold": 0.00
+}
+
+

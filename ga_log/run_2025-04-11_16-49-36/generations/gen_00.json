@@ -1,0 +1,302 @@
+[
+  {
+    "fitness": 2.2965,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.4746,
+      "contrast_edge_luminance_sobel": 0.3055,
+      "contrast_edge_color_sobel": 0.888,
+      "contrast_edge_color_gradient": 0.2095,
+      "contrast_region_color_slic": 0.1246
+    }
+  },
+  {
+    "fitness": 2.2965,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.4746,
+      "contrast_edge_luminance_sobel": 0.3055,
+      "contrast_edge_color_sobel": 0.888,
+      "contrast_edge_color_gradient": 0.2095,
+      "contrast_region_color_slic": 0.1246
+    }
+  },
+  {
+    "fitness": 2.2265,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.126,
+      "contrast_edge_luminance_sobel": 0.3629,
+      "contrast_edge_color_sobel": 0.7039,
+      "contrast_edge_color_gradient": 0.1388,
+      "contrast_region_color_slic": 0.1745
+    }
+  },
+  {
+    "fitness": 2.2265,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.126,
+      "contrast_edge_luminance_sobel": 0.3629,
+      "contrast_edge_color_sobel": 0.7039,
+      "contrast_edge_color_gradient": 0.1388,
+      "contrast_region_color_slic": 0.1745
+    }
+  },
+  {
+    "fitness": 2.2061,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.8688,
+      "contrast_edge_luminance_sobel": 0.7409,
+      "contrast_edge_color_sobel": 0.7217,
+      "contrast_edge_color_gradient": 0.7184,
+      "contrast_region_color_slic": 0.0933
+    }
+  },
+  {
+    "fitness": 2.2061,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.8688,
+      "contrast_edge_luminance_sobel": 0.7409,
+      "contrast_edge_color_sobel": 0.7217,
+      "contrast_edge_color_gradient": 0.7184,
+      "contrast_region_color_slic": 0.0933
+    }
+  },
+  {
+    "fitness": 2.1818,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.2434,
+      "contrast_edge_luminance_sobel": 0.8137,
+      "contrast_edge_color_sobel": 0.77,
+      "contrast_edge_color_gradient": 0.2879,
+      "contrast_region_color_slic": 0.4602
+    }
+  },
+  {
+    "fitness": 2.1818,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.2434,
+      "contrast_edge_luminance_sobel": 0.8137,
+      "contrast_edge_color_sobel": 0.77,
+      "contrast_edge_color_gradient": 0.2879,
+      "contrast_region_color_slic": 0.4602
+    }
+  },
+  {
+    "fitness": 2.1803,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.1898,
+      "contrast_edge_luminance_sobel": 0.975,
+      "contrast_edge_color_sobel": 0.9487,
+      "contrast_edge_color_gradient": 0.5467,
+      "contrast_region_color_slic": 0.426
+    }
+  },
+  {
+    "fitness": 2.1803,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.1898,
+      "contrast_edge_luminance_sobel": 0.975,
+      "contrast_edge_color_sobel": 0.9487,
+      "contrast_edge_color_gradient": 0.5467,
+      "contrast_region_color_slic": 0.426
+    }
+  },
+  {
+    "fitness": 2.1245,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.2974,
+      "contrast_edge_luminance_sobel": 0.4569,
+      "contrast_edge_color_sobel": 0.4327,
+      "contrast_edge_color_gradient": 0.0346,
+      "contrast_region_color_slic": 0.4241
+    }
+  },
+  {
+    "fitness": 2.1245,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.2974,
+      "contrast_edge_luminance_sobel": 0.4569,
+      "contrast_edge_color_sobel": 0.4327,
+      "contrast_edge_color_gradient": 0.0346,
+      "contrast_region_color_slic": 0.4241
+    }
+  },
+  {
+    "fitness": 2.1205,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.9092,
+      "contrast_edge_luminance_sobel": 0.432,
+      "contrast_edge_color_sobel": 0.3435,
+      "contrast_edge_color_gradient": 0.7594,
+      "contrast_region_color_slic": 0.5574
+    }
+  },
+  {
+    "fitness": 2.1205,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.9092,
+      "contrast_edge_luminance_sobel": 0.432,
+      "contrast_edge_color_sobel": 0.3435,
+      "contrast_edge_color_gradient": 0.7594,
+      "contrast_region_color_slic": 0.5574
+    }
+  },
+  {
+    "fitness": 2.1026,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.0357,
+      "contrast_edge_luminance_sobel": 0.5513,
+      "contrast_edge_color_sobel": 0.938,
+      "contrast_edge_color_gradient": 0.1479,
+      "contrast_region_color_slic": 0.5255
+    }
+  },
+  {
+    "fitness": 2.1026,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.0357,
+      "contrast_edge_luminance_sobel": 0.5513,
+      "contrast_edge_color_sobel": 0.938,
+      "contrast_edge_color_gradient": 0.1479,
+      "contrast_region_color_slic": 0.5255
+    }
+  },
+  {
+    "fitness": 2.1009,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.2158,
+      "contrast_edge_luminance_sobel": 0.233,
+      "contrast_edge_color_sobel": 0.8118,
+      "contrast_edge_color_gradient": 0.1217,
+      "contrast_region_color_slic": 0.5659
+    }
+  },
+  {
+    "fitness": 2.1009,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.2158,
+      "contrast_edge_luminance_sobel": 0.233,
+      "contrast_edge_color_sobel": 0.8118,
+      "contrast_edge_color_gradient": 0.1217,
+      "contrast_region_color_slic": 0.5659
+    }
+  },
+  {
+    "fitness": 2.0806,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.9403,
+      "contrast_edge_luminance_sobel": 0.629,
+      "contrast_edge_color_sobel": 0.2085,
+      "contrast_edge_color_gradient": 0.7717,
+      "contrast_region_color_slic": 0.1986
+    }
+  },
+  {
+    "fitness": 2.0806,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.9403,
+      "contrast_edge_luminance_sobel": 0.629,
+      "contrast_edge_color_sobel": 0.2085,
+      "contrast_edge_color_gradient": 0.7717,
+      "contrast_region_color_slic": 0.1986
+    }
+  },
+  {
+    "fitness": 2.0741,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.6559,
+      "contrast_edge_luminance_sobel": 0.7654,
+      "contrast_edge_color_sobel": 0.5921,
+      "contrast_edge_color_gradient": 0.0574,
+      "contrast_region_color_slic": 0.7621
+    }
+  },
+  {
+    "fitness": 2.0741,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.6559,
+      "contrast_edge_luminance_sobel": 0.7654,
+      "contrast_edge_color_sobel": 0.5921,
+      "contrast_edge_color_gradient": 0.0574,
+      "contrast_region_color_slic": 0.7621
+    }
+  },
+  {
+    "fitness": 2.058,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.3913,
+      "contrast_edge_luminance_sobel": 0.3357,
+      "contrast_edge_color_sobel": 0.6546,
+      "contrast_edge_color_gradient": 0.0866,
+      "contrast_region_color_slic": 0.8322
+    }
+  },
+  {
+    "fitness": 2.058,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.3913,
+      "contrast_edge_luminance_sobel": 0.3357,
+      "contrast_edge_color_sobel": 0.6546,
+      "contrast_edge_color_gradient": 0.0866,
+      "contrast_region_color_slic": 0.8322
+    }
+  },
+  {
+    "fitness": 2.0469,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.0236,
+      "contrast_edge_luminance_sobel": 0.6016,
+      "contrast_edge_color_sobel": 0.8132,
+      "contrast_edge_color_gradient": 0.6783,
+      "contrast_region_color_slic": 0.8407
+    }
+  },
+  {
+    "fitness": 2.0469,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.0236,
+      "contrast_edge_luminance_sobel": 0.6016,
+      "contrast_edge_color_sobel": 0.8132,
+      "contrast_edge_color_gradient": 0.6783,
+      "contrast_region_color_slic": 0.8407
+    }
+  },
+  {
+    "fitness": 2.0311,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.908,
+      "contrast_edge_luminance_sobel": 0.387,
+      "contrast_edge_color_sobel": 0.3935,
+      "contrast_edge_color_gradient": 0.2546,
+      "contrast_region_color_slic": 0.801
+    }
+  },
+  {
+    "fitness": 2.0311,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.908,
+      "contrast_edge_luminance_sobel": 0.387,
+      "contrast_edge_color_sobel": 0.3935,
+      "contrast_edge_color_gradient": 0.2546,
+      "contrast_region_color_slic": 0.801
+    }
+  },
+  {
+    "fitness": 2.0264,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.4928,
+      "contrast_edge_luminance_sobel": 0.4363,
+      "contrast_edge_color_sobel": 0.2014,
+      "contrast_edge_color_gradient": 0.5156,
+      "contrast_region_color_slic": 0.6783
+    }
+  },
+  {
+    "fitness": 2.0264,
+    "weights": {
+      "contrast_edge_luminance_laplacian": 0.4928,
+      "contrast_edge_luminance_sobel": 0.4363,
+      "contrast_edge_color_sobel": 0.2014,
+      "contrast_edge_color_gradient": 0.5156,
+      "contrast_region_color_slic": 0.6783
+    }
+  }
+]

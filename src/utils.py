@@ -1,8 +1,11 @@
 import cv2
 import numpy as np
+import csv
 import os
+import json
 import matplotlib.pyplot as plt
-
+import shutil
+import datetime
 
 def load_image(image_path):
     """Loads an image from a given path."""
@@ -234,7 +237,7 @@ def save_heuristic_comparison_visualization(
         heuristic_fn,
         output_path,
         cmap_saliency='gray',
-        cmap_gt='hot'
+        cmap_gt='gray'
 ):
     """
     Save a side-by-side visualization of:
@@ -281,3 +284,227 @@ def save_heuristic_comparison_visualization(
     plt.savefig(output_path, bbox_inches='tight')
     plt.close()
     print(f"💾 Saved comparison to: {output_path}")
+
+def save_isolation_comparison_visualization(
+    image_path,
+    gt_path,
+    sal1_fn,
+    sal2_fn,
+    sal3_fn,
+    output_path,
+    cmap_saliency='gray',
+    cmap_gt='gray'
+):
+    image = cv2.imread(image_path)
+    gt = cv2.imread(gt_path, cv2.IMREAD_GRAYSCALE)
+
+    if image is None or gt is None:
+        print(f"❌ Failed to load image or ground truth.")
+        return
+
+    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+    sal1 = sal1_fn(image)
+    sal2 = sal2_fn(image)
+    sal3 = sal3_fn(image)
+
+    fig, axs = plt.subplots(2, 3, figsize=(15, 10))
+
+    axs[0, 0].imshow(image_rgb)
+    axs[0, 0].axis("off")
+
+    axs[0, 1].imshow(gt, cmap=cmap_gt)
+    axs[0, 1].axis("off")
+
+    axs[0, 2].axis("off")
+
+    axs[1, 0].imshow(sal1, cmap=cmap_saliency)
+    axs[1, 0].axis("off")
+
+    axs[1, 1].imshow(sal2, cmap=cmap_saliency)
+    axs[1, 1].axis("off")
+
+    axs[1, 2].imshow(sal3, cmap=cmap_saliency)
+    axs[1, 2].axis("off")
+
+    plt.tight_layout()
+    plt.savefig(output_path, bbox_inches='tight')
+    plt.close()
+    print(f"💾 Saved comparison to: {output_path}")
+
+def save_symmetry_comparison_visualization(
+    image_path,
+    gt_path,
+    sal1_fn,
+    sal2_fn,
+    output_path,
+    cmap_saliency='gray',
+    cmap_gt='gray'
+):
+    image = cv2.imread(image_path)
+    gt = cv2.imread(gt_path, cv2.IMREAD_GRAYSCALE)
+
+    if image is None or gt is None:
+        print(f"❌ Failed to load image or ground truth.")
+        return
+
+    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+    sal1 = sal1_fn(image)
+    sal2 = sal2_fn(image)
+
+    fig, axs = plt.subplots(2, 2, figsize=(15, 10))
+
+    axs[0, 0].imshow(image_rgb)
+    axs[0, 0].axis("off")
+
+    axs[0, 1].imshow(gt, cmap=cmap_gt)
+    axs[0, 1].axis("off")
+
+
+    axs[1, 0].imshow(sal1, cmap=cmap_saliency)
+    axs[1, 0].axis("off")
+
+    axs[1, 1].imshow(sal2, cmap=cmap_saliency)
+    axs[1, 1].axis("off")
+
+
+
+    plt.tight_layout()
+    plt.savefig(output_path, bbox_inches='tight')
+    plt.close()
+    print(f"💾 Saved comparison to: {output_path}")
+
+def log_fitness_o(generation, best_fitness, avg_fitness, best_id=None, csv_path="results/fitness_log.csv"):
+    os.makedirs(os.path.dirname(csv_path), exist_ok=True)
+    is_new = not os.path.exists(csv_path)
+
+    with open(csv_path, "a", newline="") as f:
+        writer = csv.writer(f)
+        if is_new:
+            writer.writerow(["Generation", "BestFitness", "AverageFitness", "BestID"])
+        writer.writerow([generation, f"{best_fitness:.4f}", f"{avg_fitness:.4f}", best_id if best_id is not None else ""])
+
+
+def log_fitness(generation, best_fitness, avg_fitness, best_id=None,
+                best_sim=None, best_cc=None, best_kl=None,
+                avg_sim=None, avg_cc=None, avg_kl=None,
+                csv_path="results/fitness_log.csv"):
+    os.makedirs(os.path.dirname(csv_path), exist_ok=True)
+    is_new = not os.path.exists(csv_path)
+
+    with open(csv_path, "a", newline="") as f:
+        writer = csv.writer(f)
+        if is_new:
+            writer.writerow([
+                "Generation", "BestFitness", "AverageFitness", "BestID",
+                "BestSIM", "BestCC", "BestKL",
+                "AvgSIM", "AvgCC", "AvgKL"
+            ])
+        writer.writerow([
+            generation,
+            f"{best_fitness:.4f}",
+            f"{avg_fitness:.4f}",
+            best_id if best_id is not None else "",
+            f"{best_sim:.4f}" if best_sim is not None else "",
+            f"{best_cc:.4f}" if best_cc is not None else "",
+            f"{best_kl:.4f}" if best_kl is not None else "",
+            f"{avg_sim:.4f}" if avg_sim is not None else "",
+            f"{avg_cc:.4f}" if avg_cc is not None else "",
+            f"{avg_kl:.4f}" if avg_kl is not None else ""
+        ])
+
+
+def save_best_individual(generation, individual, fitness, avg_sim, avg_cc, avg_kl, heuristic_names, out_path="results/best_individual.json"):
+    data = {
+        "generation": int(generation),
+        "fitness": float(round(fitness, 4)),
+        "avg_sim": float(round(avg_sim, 4)),
+        "avg_cc": float(round(avg_cc, 4)),
+        "avg_kl": float(round(avg_kl, 4)),
+        "weights": {
+            name: float(round(weight, 4))
+            for name, weight in zip(heuristic_names, individual)
+        }
+    }
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    with open(out_path, "w") as f:
+        json.dump(data, f, indent=2)
+
+
+
+def save_generation_state(generation, evaluated_population, heuristic_names, folder="results/generations"):
+    os.makedirs(folder, exist_ok=True)
+    generation_data = []
+    for individual, fitness, avg_sim, avg_cc, avg_kl in evaluated_population:
+        weights = {name: round(w, 4) for name, w in zip(heuristic_names, individual)}
+        generation_data.append({
+            "fitness": float(round(fitness, 4)),
+            "avg_sim": float(round(avg_sim, 4)),
+            "avg_cc": float(round(avg_cc, 4)),
+            "avg_kl": float(round(avg_kl, 4)),
+            "weights": weights
+        })
+
+    with open(os.path.join(folder, f"gen_{generation:02d}.json"), "w") as f:
+        json.dump(generation_data, f, indent=2)
+
+
+def copy_config_file(src_config_path="src/ga/config.json", dst_folder="results/", file_name="used_config.json"):
+    os.makedirs(dst_folder, exist_ok=True)
+    dst_path = os.path.join(dst_folder, file_name)
+    shutil.copyfile(src_config_path, dst_path)
+    print(f"📋 Saved config copy to {dst_path}")
+
+def create_run_output_folder(base_dir="ga_log"):
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    run_folder = os.path.join(base_dir, f"run_{timestamp}")
+    os.makedirs(run_folder, exist_ok=True)
+    os.makedirs(os.path.join(run_folder, "generations"), exist_ok=True)
+    print(f"📁 Created GA log folder: {run_folder}")
+    return run_folder
+
+def combine_saliency_maps(heuristic_maps, weights_dict):
+    """
+    Combines saliency maps using weights provided in `weights_dict`.
+
+    Args:
+        heuristic_maps (dict): Dict of {heuristic_name: saliency_map}
+        weights_dict (dict): Dict of {heuristic_name: weight}
+
+    Returns:
+        combined_map (np.ndarray): Final combined saliency map (uint8, 0–255)
+    """
+    combined = np.zeros_like(next(iter(heuristic_maps.values())), dtype=np.float32)
+
+    for name, sal_map in heuristic_maps.items():
+        weight = weights_dict.get(name, 0.0)
+        if weight < 1e-6:
+            continue
+        combined += sal_map.astype(np.float32) * weight
+
+    combined = cv2.normalize(combined, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+    return combined
+
+def save_combined_map(original_image, combined_map, generation_id, run_folder):
+    """
+    Saves the grayscale saliency map resized to the original image size.
+
+    Args:
+        original_image (np.ndarray): The original BGR image.
+        combined_map (np.ndarray): Grayscale saliency map (0–255).
+        generation_id (int): Current generation number.
+        run_folder (str): Path to the GA run folder.
+    """
+    output_dir = os.path.join(run_folder, "generations")
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Resize saliency map to match original image size
+    resized_map = cv2.resize(combined_map, (original_image.shape[1], original_image.shape[0]))
+
+    # Save with filename including generation number
+    filename = f"gen_{generation_id:03d}_saliency.png"
+    save_path = os.path.join(output_dir, filename)
+
+    cv2.imwrite(save_path, resized_map)
+    print(f"💾 Saved generation {generation_id} saliency map → {save_path}")

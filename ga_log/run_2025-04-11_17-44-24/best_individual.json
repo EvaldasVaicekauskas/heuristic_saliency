@@ -1,0 +1,14 @@
+{
+  "generation": 6,
+  "fitness": 2.7908208401924934,
+  "weights": {
+    "contrast_edge_luminance_laplacian": 0.8911,
+    "contrast_edge_luminance_sobel": 0.239,
+    "contrast_edge_color_sobel": 0.9445,
+    "contrast_edge_color_gradient": 0.4532,
+    "contrast_region_color_slic": 0.4609,
+    "contrast_texture_gabor": 1.0,
+    "contrast_texture_lbp": 0.0631,
+    "contrast_texture_entropy": 0.262
+  }
+}
