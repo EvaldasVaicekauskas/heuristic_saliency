@@ -5,40 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ce17240-ad5d-497e-865e-5c0f1d396f86" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/evaluation/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ga/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ga/config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ga/genetic.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ga/genetic_mod.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ga/run_ga.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ga/run_ga_mod.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ga/template_config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/generate_maps/gen_maps_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/generate_maps/generate_maps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/generate_maps/postprocessing.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/heuristics/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modulation/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modulation/modulation_config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modulation/modulation_features.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modulation/modulation_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/remove_padding.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evaluation/evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/evaluation/evaluation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evaluation/resize_saliency_maps.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/evaluation/resize_saliency_maps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evaluation/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/evaluation/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ga/checkpoint.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ga/config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ga/genetic.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ga/run_ga.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ga/template_config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/heuristic_tester.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/src/heuristics/heuristic_tester.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/heuristic_tester_local.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/heuristics/heuristic_tester_local.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/heuristics.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/heuristics/heuristics.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/saliency.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/saliency.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test_dataset_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/test_dataset_loader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
